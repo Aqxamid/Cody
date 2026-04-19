@@ -1,4 +1,4 @@
-# Cody - Competitive Programming IDE
+# Cody - Competitive Programming Platform
 
 Cody is a mobile competitive programming platform designed for practicing competitive programming. This application provides a curated learning path through 46 categorized challenges, allowing users to solve algorithmic problems in both Python and Dart on a mobile device.
 
