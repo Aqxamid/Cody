@@ -61,27 +61,34 @@ class _ProblemsListScreenState extends ConsumerState<ProblemsListScreen> {
             separatorBuilder: (_, __) => const SizedBox(height: 8),
             itemBuilder: (ctx, i) {
               final p = problems[i];
+              final firstUnsolvedIndex = ProblemBank.problems.indexWhere((prob) => !user.solvedProblemIds.contains(prob.id));
+              final absoluteIndex = ProblemBank.problems.indexOf(p);
+              final isLocked = firstUnsolvedIndex != -1 && absoluteIndex > firstUnsolvedIndex;
               final solved = user.solvedProblemIds.contains(p.id);
               final diffColor = p.difficulty == Difficulty.easy
                   ? Theme.of(context).colorScheme.tertiary
                   : p.difficulty == Difficulty.medium
                       ? Theme.of(context).colorScheme.primary
                       : Theme.of(context).colorScheme.error;
-              return Material(
-                color: Theme.of(context).colorScheme.surfaceContainerLow,
-                child: InkWell(
-                  onTap: () => widget.onProblemSelected(p.id),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(children: [
-                      Container(
-                        width: 40, height: 40,
-                        color: solved ? Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.15) : Theme.of(context).colorScheme.surfaceContainerHighest,
-                        alignment: Alignment.center,
-                        child: solved
-                            ? Icon(Icons.check, color: Theme.of(context).colorScheme.tertiary, size: 20)
-                            : Text('${i + 1}'.padLeft(2, '0'), style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: diffColor)),
-                      ),
+              return Opacity(
+                opacity: isLocked ? 0.5 : 1.0,
+                child: Material(
+                  color: Theme.of(context).colorScheme.surfaceContainerLow,
+                  child: InkWell(
+                    onTap: isLocked ? null : () => widget.onProblemSelected(p.id),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(children: [
+                        Container(
+                          width: 40, height: 40,
+                          color: solved ? Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.15) : Theme.of(context).colorScheme.surfaceContainerHighest,
+                          alignment: Alignment.center,
+                          child: isLocked 
+                              ? Icon(Icons.lock_outline, color: Theme.of(context).colorScheme.outline, size: 18)
+                              : solved
+                                  ? Icon(Icons.check, color: Theme.of(context).colorScheme.tertiary, size: 20)
+                                  : Text('${ProblemBank.problems.indexOf(p) + 1}'.padLeft(2, '0'), style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: diffColor)),
+                        ),
                       const SizedBox(width: 16),
                       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         Text(p.title, style: GoogleFonts.spaceGrotesk(fontSize: 14, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface)),
@@ -100,16 +107,21 @@ class _ProblemsListScreenState extends ConsumerState<ProblemsListScreen> {
                         ]),
                       ])),
                       Row(children: [
-                        Icon(Icons.bolt, color: Theme.of(context).colorScheme.tertiary, size: 14),
-                        Text('+${p.xpReward}', style: GoogleFonts.firaMono(fontSize: 11, color: Theme.of(context).colorScheme.tertiary)),
-                        const SizedBox(width: 8),
-                        Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.outline, size: 18),
+                        if (isLocked)
+                          Icon(Icons.lock, color: Theme.of(context).colorScheme.outline, size: 16)
+                        else ...[
+                          Icon(Icons.bolt, color: Theme.of(context).colorScheme.tertiary, size: 14),
+                          Text('+${p.xpReward}', style: GoogleFonts.firaMono(fontSize: 11, color: Theme.of(context).colorScheme.tertiary)),
+                          const SizedBox(width: 8),
+                          Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.outline, size: 18),
+                        ],
                       ]),
                     ]),
                   ),
                 ),
-              );
-            },
+              ),
+            );
+          },
           ),
         ),
       ]),

@@ -1,7 +1,7 @@
 import '../models/models.dart';
 
 class ProblemBank {
-  static const List<Problem> problems = [
+  static final List<Problem> problems = [
     // ── LEVEL 1: BASICS ─────────────────────────────────────────────────────
     Problem(
       id: 'sum_two',
@@ -12,11 +12,22 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Given two integers a and b, return their sum.',
       examples: [ProblemExample(input: 'a = 5, b = 3', output: '8')],
-      testCases: [TestCase(input: '5, 3', expectedOutput: '8')],
+      testCases: [
+        TestCase(input: '5, 3', expectedOutput: '8'),
+        TestCase(input: '-1, -1', expectedOutput: '-2'),
+        TestCase(input: '0, 0', expectedOutput: '0', isHidden: true),
+      
+        TestCase(input: '1000000, 999999', expectedOutput: '1999999', isHidden: true),
+      ],
       constraints: '-10⁹ ≤ a, b ≤ 10⁹',
       starterCode: {
         'Python': 'def solve(a, b):\n    # Implement here\n    return 0',
         'Dart': 'int solve(int a, int b) {\n  // Implement here\n  return 0;\n}',
+      
+        'C': 'int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
+        'C++': 'int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
+        'Java': 'public static int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript': 'function solve(a, b) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -28,11 +39,21 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Given an integer n, return "Even" if the number is even, or "Odd" if it is odd.',
       examples: [ProblemExample(input: 'n = 4', output: 'Even')],
-      testCases: [TestCase(input: '4', expectedOutput: 'Even')],
+      testCases: [
+        TestCase(input: '4', expectedOutput: 'Even'),
+        TestCase(input: '7', expectedOutput: 'Odd'),
+        TestCase(input: '0', expectedOutput: 'Even', isHidden: true),
+        TestCase(input: '-3', expectedOutput: 'Odd', isHidden: true),
+      ],
       constraints: '-10⁹ ≤ n ≤ 10⁹',
       starterCode: {
         'Python': 'def solve(n):\n    # Implement here\n    return ""',
         'Dart': 'String solve(int n) {\n  // Implement here\n  return "";\n}',
+      
+        'C': 'char* solve(int n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
+        'C++': 'string solve(int n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
+        'Java': 'public static String solve(int n) {\n    // Implement here\n    return "";\n}',
+        'JavaScript': 'function solve(n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
       },
     ),
     Problem(
@@ -44,11 +65,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Given three integers a, b, and c, return the largest one.',
       examples: [ProblemExample(input: '1, 5, 3', output: '5')],
-      testCases: [TestCase(input: '1, 5, 3', expectedOutput: '5')],
+      testCases: [
+        TestCase(input: '1, 5, 3', expectedOutput: '5'),
+        TestCase(input: '-1, -5, -3', expectedOutput: '-1'),
+        TestCase(input: '7, 7, 7', expectedOutput: '7', isHidden: true),
+      ],
       constraints: '-10⁹ ≤ a, b, c ≤ 10⁹',
       starterCode: {
         'Python': 'def solve(a, b, c):\n    # Implement here\n    return 0',
         'Dart': 'int solve(int a, int b, int c) {\n  // Implement here\n  return 0;\n}',
+      
+        'C': 'int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
+        'C++': 'int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
+        'Java': 'public static int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript': 'function solve(a, b, c) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -60,11 +90,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Given a string s, return the reversed string.',
       examples: [ProblemExample(input: 's = "hello"', output: '"olleh"')],
-      testCases: [TestCase(input: 'hello', expectedOutput: 'olleh')],
+      testCases: [
+        TestCase(input: '"hello"', expectedOutput: 'olleh'),
+        TestCase(input: '"a"', expectedOutput: 'a'),
+        TestCase(input: '"racecar"', expectedOutput: 'racecar', isHidden: true),
+      ],
       constraints: '1 ≤ s.length ≤ 1000',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return ""',
         'Dart': 'String solve(String s) {\n  // Implement here\n  return "";\n}',
+      
+        'C': 'char* solve(char* s) {\n    // Implement here\n    return s;\n}',
+        'C++': 'string solve(string s) {\n    // Implement here\n    return "";\n}',
+        'Java': 'public static String solve(String s) {\n    // Implement here\n    return "";\n}',
+        'JavaScript': 'function solve(s) {\n    // Implement here\n    return "";\n}',
       },
     ),
     Problem(
@@ -76,11 +115,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Count the number of vowels (a, e, i, o, u) in a given string s.',
       examples: [ProblemExample(input: 's = "coding"', output: '2')],
-      testCases: [TestCase(input: 'coding', expectedOutput: '2')],
+      testCases: [
+        TestCase(input: '"coding"', expectedOutput: '2'),
+        TestCase(input: '"aeiou"', expectedOutput: '5'),
+        TestCase(input: '"xyz"', expectedOutput: '0', isHidden: true),
+      ],
       constraints: '1 ≤ s.length ≤ 1000',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return 0',
         'Dart': 'int solve(String s) {\n  // Implement here\n  return 0;\n}',
+      
+        'C': 'int solve(char* s) {\n    // Implement here\n    return 0;\n}',
+        'C++': 'int solve(string s) {\n    // Implement here\n    return 0;\n}',
+        'Java': 'public static int solve(String s) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript': 'function solve(s) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -92,11 +140,20 @@ class ProblemBank {
       functionName: 'factorial',
       description: 'Return the factorial of a non-negative integer n.',
       examples: [ProblemExample(input: 'n = 5', output: '120')],
-      testCases: [TestCase(input: '5', expectedOutput: '120')],
+      testCases: [
+        TestCase(input: '5', expectedOutput: '120'),
+        TestCase(input: '0', expectedOutput: '1'),
+        TestCase(input: '10', expectedOutput: '3628800', isHidden: true),
+      ],
       constraints: '0 ≤ n ≤ 20',
       starterCode: {
         'Python': 'def factorial(n):\n    # Implement here\n    return 1',
         'Dart': 'int factorial(int n) {\n  // Implement here\n  return 1;\n}',
+      
+        'C': 'long long factorial(int n) {\n    // Implement here\n    return 1;\n}',
+        'C++': 'long long factorial(int n) {\n    // Implement here\n    return 1;\n}',
+        'Java': 'public static long factorial(int n) {\n    // Implement here\n    return 1;\n}',
+        'JavaScript': 'function factorial(n) {\n    // Implement here\n    return 1;\n}',
       },
     ),
     Problem(
@@ -108,11 +165,17 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Return the first n terms of the Fibonacci sequence.',
       examples: [ProblemExample(input: 'n = 5', output: '[0, 1, 1, 2, 3]')],
-      testCases: [TestCase(input: '5', expectedOutput: '0 1 1 2 3')],
+      testCases: [
+        TestCase(input: '5', expectedOutput: '0 1 1 2 3'),
+        TestCase(input: '1', expectedOutput: '0'),
+        TestCase(input: '8', expectedOutput: '0 1 1 2 3 5 8 13', isHidden: true),
+      ],
       constraints: '1 ≤ n ≤ 50',
       starterCode: {
         'Python': 'def solve(n):\n    # Implement here\n    return []',
         'Dart': 'List<int> solve(int n) {\n  // Implement here\n  return [];\n}',
+      
+        'JavaScript': 'function solve(n) {\n    // Return array of first n Fibonacci numbers\n    return [];\n}',
       },
     ),
     Problem(
@@ -124,11 +187,21 @@ class ProblemBank {
       functionName: 'isPrime',
       description: 'Determine if an integer n is a prime number.',
       examples: [ProblemExample(input: 'n = 7', output: 'true')],
-      testCases: [TestCase(input: '7', expectedOutput: 'true')],
+      testCases: [
+        TestCase(input: '7', expectedOutput: 'true'),
+        TestCase(input: '1', expectedOutput: 'false'),
+        TestCase(input: '2', expectedOutput: 'true', isHidden: true),
+        TestCase(input: '100', expectedOutput: 'false', isHidden: true),
+      ],
       constraints: '1 ≤ n ≤ 10⁹',
       starterCode: {
         'Python': 'def isPrime(n):\n    # Implement here\n    return False',
         'Dart': 'bool isPrime(int n) {\n  // Implement here\n  return false;\n}',
+      
+        'C': 'bool isPrime(int n) {\n    // Implement here\n    return false;\n}',
+        'C++': 'bool isPrime(int n) {\n    // Implement here\n    return false;\n}',
+        'Java': 'public static boolean isPrime(int n) {\n    // Implement here\n    return false;\n}',
+        'JavaScript': 'function isPrime(n) {\n    // Implement here\n    return false;\n}',
       },
     ),
     Problem(
@@ -140,11 +213,19 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Convert Celsius to Fahrenheit.',
       examples: [ProblemExample(input: '0', output: '32.0')],
-      testCases: [TestCase(input: '0', expectedOutput: '32.0')],
+      testCases: [
+        TestCase(input: '0', expectedOutput: '32.0'),
+        TestCase(input: '100', expectedOutput: '212.0'),
+        TestCase(input: '-40', expectedOutput: '-40.0', isHidden: true),
+      ],
       constraints: '-273.15 ≤ c ≤ 1000',
       starterCode: {
         'Python': 'def solve(c):\n    # Implement here\n    return 0.0',
         'Dart': 'double solve(double c) {\n  // Implement here\n  return 0.0;\n}',
+      
+        'C++': 'double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
+        'Java': 'public static double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
+        'JavaScript': 'function solve(c) {\n    // Implement here\n    return 0.0;\n}',
       },
     ),
     Problem(
@@ -156,11 +237,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Calculate the sum of digits of a positive integer n.',
       examples: [ProblemExample(input: '123', output: '6')],
-      testCases: [TestCase(input: '123', expectedOutput: '6')],
+      testCases: [
+        TestCase(input: '123', expectedOutput: '6'),
+        TestCase(input: '0', expectedOutput: '0'),
+        TestCase(input: '9999', expectedOutput: '36', isHidden: true),
+      ],
       constraints: '0 ≤ n ≤ 10⁹',
       starterCode: {
         'Python': 'def solve(n):\n    # Implement here\n    return 0',
         'Dart': 'int solve(int n) {\n  // Implement here\n  return 0;\n}',
+      
+        'C': 'int solve(int n) {\n    // Implement here\n    return 0;\n}',
+        'C++': 'int solve(int n) {\n    // Implement here\n    return 0;\n}',
+        'Java': 'public static int solve(int n) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript': 'function solve(n) {\n    // Implement here\n    return 0;\n}',
       },
     ),
 
@@ -174,7 +264,10 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find the largest number in an array.',
       examples: [ProblemExample(input: '[1, 5, 3]', output: '5')],
-      testCases: [TestCase(input: '[1, 5, 3]', expectedOutput: '5')],
+      testCases: [TestCase(input: '[1, 5, 3]', expectedOutput: '5'),
+        TestCase(input: '[-3, -1, -2]', expectedOutput: '-1'),
+        TestCase(input: '[42]', expectedOutput: '42', isHidden: true),
+      ],
       constraints: '1 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return 0',
@@ -270,11 +363,19 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Is it a palindrome?',
       examples: [ProblemExample(input: 'madam', output: 'true')],
-      testCases: [TestCase(input: 'madam', expectedOutput: 'true')],
+      testCases: [
+        TestCase(input: '"madam"', expectedOutput: 'true'),
+        TestCase(input: '"racecar"', expectedOutput: 'true', isHidden: true),
+        TestCase(input: '"hello"', expectedOutput: 'false'),
+      ],
       constraints: '0 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return False',
         'Dart': 'bool solve(String s) {\n  // Implement here\n  return false;\n}',
+      
+        'C++': 'bool solve(string s) {\n    // Implement here\n    return false;\n}',
+        'Java': 'public static boolean solve(String s) {\n    // Implement here\n    return false;\n}',
+        'JavaScript': 'function solve(s) {\n    // Implement here\n    return false;\n}',
       },
     ),
     Problem(
@@ -286,7 +387,10 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Generate every possible substring.',
       examples: [ProblemExample(input: 'abc', output: 'a, ab, abc, b, bc, c')],
-      testCases: [TestCase(input: 'abc', expectedOutput: 'a ab abc b bc c')],
+      testCases: [
+        TestCase(input: '"abc"', expectedOutput: 'a, ab, abc, b, bc, c'),
+        TestCase(input: '"a"', expectedOutput: 'a', isHidden: true),
+      ],
       constraints: '1 ≤ length ≤ 50',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return []',
@@ -336,11 +440,16 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find indices of two numbers that add up to target.',
       examples: [ProblemExample(input: 'nums=[2,7], target=9', output: '[0,1]')],
-      testCases: [TestCase(input: '[2,7]\n9', expectedOutput: '[0, 1]')],
+      testCases: [TestCase(input: '[2,7]\n9', expectedOutput: '[0, 1]'),
+        TestCase(input: '[3,2,4]\n6', expectedOutput: '[1, 2]'),
+        TestCase(input: '[3,3]\n6', expectedOutput: '[0, 1]', isHidden: true),
+      ],
       constraints: '2 ≤ length ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(nums, target):\n    # Implement here\n    return []',
         'Dart': 'List<int> solve(List<int> nums, int target) {\n  // Implement here\n  return [];\n}',
+      
+        'JavaScript': 'function solve(nums, target) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -368,7 +477,10 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find two lines that form a container with most water.',
       examples: [ProblemExample(input: '[1,8,6,2,5,4,8,3,7]', output: '49')],
-      testCases: [TestCase(input: '[1,8,6,2,5,4,8,3,7]', expectedOutput: '49')],
+      testCases: [TestCase(input: '[1,8,6,2,5,4,8,3,7]', expectedOutput: '49'),
+        TestCase(input: '[1,1]', expectedOutput: '1'),
+        TestCase(input: '[4,3,2,1,4]', expectedOutput: '16', isHidden: true),
+      ],
       constraints: 'n ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(h):\n    # Implement here\n    return 0',
@@ -384,11 +496,17 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Largest sum of size k.',
       examples: [ProblemExample(input: '[2,1,5,1,3,2], 3', output: '9')],
-      testCases: [TestCase(input: '[2,1,5,1,3,2]\n3', expectedOutput: '9')],
+      testCases: [TestCase(input: '[2,1,5,1,3,2]\n3', expectedOutput: '9'),
+        TestCase(input: '[1,1,1,1]\n2', expectedOutput: '2'),
+        TestCase(input: '[5,5,5,5,5]\n3', expectedOutput: '15', isHidden: true),
+      ],
       constraints: 'k ≤ length',
       starterCode: {
         'Python': 'def solve(nums, k):\n    # Implement here\n    return 0',
         'Dart': 'int solve(List<int> nums, int k) {\n  // Implement here\n  return 0;\n}',
+      
+        'JavaScript': 'function solve(nums, k) {\n    // Implement here\n    return 0;\n}',
+        'Java': 'public static int solve(int[] nums, int k) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -400,11 +518,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find length of longest substring without repeats.',
       examples: [ProblemExample(input: 'abcabcbb', output: '3')],
-      testCases: [TestCase(input: 'abcabcbb', expectedOutput: '3')],
+      testCases: [
+        TestCase(input: '"abcabcbb"', expectedOutput: '3'),
+        TestCase(input: '"bbbbb"', expectedOutput: '1'),
+        TestCase(input: '"pwwkew"', expectedOutput: '3', isHidden: true),
+      ],
       constraints: 'n ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return 0',
         'Dart': 'int solve(String s) {\n  // Implement here\n  return 0;\n}',
+      
+        'C': 'int solve(char* s) {\n    // Implement here\n    return 0;\n}',
+        'C++': 'int solve(string s) {\n    // Implement here\n    return 0;\n}',
+        'Java': 'public static int solve(String s) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript': 'function solve(s) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -416,7 +543,11 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find smallest substring containing all characters of target.',
       examples: [ProblemExample(input: 'ADOBECODEBANC, ABC', output: 'BANC')],
-      testCases: [TestCase(input: 'ADOBECODEBANC\nABC', expectedOutput: 'BANC')],
+      testCases: [
+        TestCase(input: '"ADOBECODEBANC"\n"ABC"', expectedOutput: 'BANC'),
+        TestCase(input: '"a"\n"a"', expectedOutput: 'a'),
+        TestCase(input: '"a"\n"b"', expectedOutput: '', isHidden: true),
+      ],
       constraints: 'n ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(s, t):\n    # Implement here\n    return ""',
@@ -432,7 +563,7 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Return index of first non-repeating char.',
       examples: [ProblemExample(input: 'leetcode', output: '0')],
-      testCases: [TestCase(input: 'leetcode', expectedOutput: '0')],
+      testCases: [TestCase(input: '"leetcode"', expectedOutput: '0')],
       constraints: 'n ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return -1',
@@ -498,7 +629,7 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Return all permutations.',
       examples: [ProblemExample(input: 'abc', output: 'abc, acb, bac, bca, cab, cba')],
-      testCases: [TestCase(input: 'abc', expectedOutput: 'abc acb bac bca cab cba')],
+      testCases: [TestCase(input: '"abc"', expectedOutput: 'abc acb bac bca cab cba')],
       constraints: '1 ≤ n ≤ 8',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return []',
@@ -521,38 +652,8 @@ class ProblemBank {
         'Dart': 'List<List<int>> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
       },
     ),
-    Problem(
-      id: 'n_queens_4',
-      title: 'N-Queens problem',
-      difficulty: Difficulty.hard,
-      tags: ['Backtracking'],
-      xpReward: 180,
-      functionName: 'solve',
-      description: 'Distinct placements of n queens.',
-      examples: [ProblemExample(input: '4', output: '2')],
-      testCases: [TestCase(input: '4', expectedOutput: '2')],
-      constraints: '1 ≤ n ≤ 9',
-      starterCode: {
-        'Python': 'def solve(n):\n    # Implement here\n    return []',
-        'Dart': 'List<List<String>> solve(int n) {\n  // Implement here\n  return [];\n}',
-      },
-    ),
-    Problem(
-      id: 'sudoku_solver_4',
-      title: 'Sudoku solver',
-      difficulty: Difficulty.hard,
-      tags: ['Backtracking'],
-      xpReward: 200,
-      functionName: 'solve',
-      description: 'Solve the board.',
-      examples: [ProblemExample(input: '...', output: 'Solved')],
-      testCases: [TestCase(input: 'Sudoku', expectedOutput: 'true')],
-      constraints: '9x9',
-      starterCode: {
-        'Python': 'def solve(board):\n    # Implement here\n    pass',
-        'Dart': 'void solve(List<List<String>> board) {\n  // Implement here\n}',
-      },
-    ),
+    
+    
     Problem(
       id: 'combination_sum',
       title: 'Combination sum',
@@ -571,22 +672,7 @@ class ProblemBank {
     ),
 
     // ── LEVEL 5: DATA STRUCTURES ────────────────────────────────────────────
-    Problem(
-      id: 'impl_stack',
-      title: 'Implement stack',
-      difficulty: Difficulty.hard,
-      tags: ['Stack'],
-      xpReward: 150,
-      functionName: 'Stack',
-      description: 'Implement a stack with push, pop, top, and empty.',
-      examples: [ProblemExample(input: 'push(1), pop()', output: '1')],
-      testCases: [TestCase(input: 'Stack', expectedOutput: 'true')],
-      constraints: '1000 calls',
-      starterCode: {
-        'Python': 'class Stack:\n    def __init__(self): pass\n    def push(self, x): pass\n    def pop(self): pass\n    def top(self): pass\n    def empty(self): return True',
-        'Dart': 'class Stack {\n  // Implement stack\n}',
-      },
-    ),
+    
     Problem(
       id: 'valid_parens_5',
       title: 'Valid parentheses checker',
@@ -596,11 +682,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Check bracket validity.',
       examples: [ProblemExample(input: '()', output: 'true')],
-      testCases: [TestCase(input: '()', expectedOutput: 'true')],
+      testCases: [
+        TestCase(input: '"()"', expectedOutput: 'true'),
+        TestCase(input: '"([{}])"', expectedOutput: 'true'),
+        TestCase(input: '"(]"', expectedOutput: 'false', isHidden: true),
+        TestCase(input: '"{[()]}"', expectedOutput: 'true', isHidden: true),
+      ],
       constraints: 'n < 10⁴',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return False',
         'Dart': 'bool solve(String s) {\n  // Implement here\n  return false;\n}',
+      
+        'C++': 'bool solve(string s) {\n    // Implement here\n    return false;\n}',
+        'Java': 'public static boolean solve(String s) {\n    // Implement here\n    return false;\n}',
+        'JavaScript': 'function solve(s) {\n    // Implement here\n    return false;\n}',
       },
     ),
     Problem(
@@ -619,38 +714,8 @@ class ProblemBank {
         'Dart': 'List<int> solve(List<int> n1, List<int> n2) {\n  // Implement here\n  return [];\n}',
       },
     ),
-    Problem(
-      id: 'impl_queue',
-      title: 'Implement queue using array',
-      difficulty: Difficulty.hard,
-      tags: ['Queue'],
-      xpReward: 150,
-      functionName: 'Queue',
-      description: 'Push, Pop, Front, Empty.',
-      examples: [ProblemExample(input: 'q.push(1)', output: 'null')],
-      testCases: [TestCase(input: 'Queue', expectedOutput: 'true')],
-      constraints: '1000 calls',
-      starterCode: {
-        'Python': 'class Queue:\n    def __init__(self): pass\n    def push(self, x): pass\n    def pop(self): pass',
-        'Dart': 'class Queue {\n  // Implement queue\n}',
-      },
-    ),
-    Problem(
-      id: 'circular_queue',
-      title: 'Circular queue',
-      difficulty: Difficulty.hard,
-      tags: ['Queue'],
-      xpReward: 180,
-      functionName: 'CircularQueue',
-      description: 'Implement a circular queue with fixed capacity.',
-      examples: [ProblemExample(input: 'k=3', output: 'null')],
-      testCases: [TestCase(input: 'Circular', expectedOutput: 'true')],
-      constraints: 'k < 1000',
-      starterCode: {
-        'Python': 'class CircularQueue:\n    def __init__(self, k): pass',
-        'Dart': 'class CircularQueue {\n  CircularQueue(int k);\n}',
-      },
-    ),
+    
+    
     Problem(
       id: 'sliding_window_max',
       title: 'Sliding window maximum',
@@ -667,70 +732,10 @@ class ProblemBank {
         'Dart': 'List<int> solve(List<int> nums, int k) {\n  // Implement here\n  return [];\n}',
       },
     ),
-    Problem(
-      id: 'reverse_ll_5',
-      title: 'Reverse linked list',
-      difficulty: Difficulty.medium,
-      tags: ['Linked List'],
-      xpReward: 100,
-      functionName: 'solve',
-      description: 'Reverse it.',
-      examples: [ProblemExample(input: '[1,2]', output: '[2,1]')],
-      testCases: [TestCase(input: '[1,2]', expectedOutput: '[2, 1]')],
-      constraints: 'n < 5000',
-      starterCode: {
-        'Python': 'def solve(head):\n    # Implement here\n    pass',
-        'Dart': 'ListNode? solve(ListNode? head) {\n  // Implement here\n  return null;\n}',
-      },
-    ),
-    Problem(
-      id: 'detect_cycle',
-      title: 'Detect cycle in linked list',
-      difficulty: Difficulty.hard,
-      tags: ['Linked List'],
-      xpReward: 160,
-      functionName: 'solve',
-      description: 'Does the list have a cycle?',
-      examples: [ProblemExample(input: '[3,2,0,-4], pos=1', output: 'true')],
-      testCases: [TestCase(input: 'Cycle', expectedOutput: 'true')],
-      constraints: 'n < 10⁴',
-      starterCode: {
-        'Python': 'def solve(head):\n    # Implement here\n    return False',
-        'Dart': 'bool solve(ListNode? head) {\n  // Implement here\n  return false;\n}',
-      },
-    ),
-    Problem(
-      id: 'merge_sorted_ll',
-      title: 'Merge two sorted linked lists',
-      difficulty: Difficulty.hard,
-      tags: ['Linked List'],
-      xpReward: 150,
-      functionName: 'solve',
-      description: 'Combine and keep sorted.',
-      examples: [ProblemExample(input: '[1,2,4],[1,3,4]', output: '[1,1,2,3,4,4]')],
-      testCases: [TestCase(input: '[1,2,4]\n[1,3,4]', expectedOutput: '[1, 1, 2, 3, 4, 4]')],
-      constraints: 'n < 50',
-      starterCode: {
-        'Python': 'def solve(l1, l2):\n    # Implement here\n    pass',
-        'Dart': 'ListNode? solve(ListNode? l1, ListNode? l2) {\n  // Implement here\n  return null;\n}',
-      },
-    ),
-    Problem(
-      id: 'middle_ll',
-      title: 'Find middle of linked list',
-      difficulty: Difficulty.easy,
-      tags: ['Linked List', 'Two Pointers'],
-      xpReward: 70,
-      functionName: 'solve',
-      description: 'Return middle node.',
-      examples: [ProblemExample(input: '[1,2,3,4,5]', output: '[3,4,5]')],
-      testCases: [TestCase(input: '[1,2,3,4,5]', expectedOutput: '[3, 4, 5]')],
-      constraints: 'n < 100',
-      starterCode: {
-        'Python': 'def solve(head):\n    # Implement here\n    pass',
-        'Dart': 'ListNode? solve(ListNode? head) {\n  // Implement here\n  return null;\n}',
-      },
-    ),
+    
+    
+    
+    
   ];
 
   static Problem? getById(String id) {

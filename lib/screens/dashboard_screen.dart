@@ -23,7 +23,6 @@ class DashboardScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Cody', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: -0.5)),
         actions: [
-          IconButton(icon: const Icon(Icons.notifications_outlined, color: Color(0xFF64748B)), onPressed: () {}),
           IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),
@@ -192,6 +191,9 @@ class DashboardScreen extends ConsumerWidget {
         ...problems.asMap().entries.map((e) {
           final i = e.key;
           final p = e.value;
+          final firstUnsolvedIndex = ProblemBank.problems.indexWhere((prob) => !user.solvedProblemIds.contains(prob.id));
+          final absoluteIndex = ProblemBank.problems.indexOf(p);
+          final isLocked = firstUnsolvedIndex != -1 && absoluteIndex > firstUnsolvedIndex;
           final indexColors = [Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.tertiary, Theme.of(context).colorScheme.error];
           return Padding(
             padding: const EdgeInsets.only(bottom: 12),
@@ -200,7 +202,8 @@ class DashboardScreen extends ConsumerWidget {
               title: p.title,
               category: '${p.tags.first.toUpperCase()} • ${p.difficulty.name.toUpperCase()}',
               indexColor: indexColors[i % 3],
-              onTap: () => onProblemSelected(p.id),
+              isLocked: isLocked,
+              onTap: isLocked ? null : () => onProblemSelected(p.id),
             ),
           );
         }),
@@ -244,32 +247,38 @@ class _ProblemCard extends StatelessWidget {
   final String title;
   final String category;
   final Color indexColor;
-  final VoidCallback onTap;
+  final bool isLocked;
+  final VoidCallback? onTap;
 
-  const _ProblemCard({required this.index, required this.title, required this.category, required this.indexColor, required this.onTap});
+  const _ProblemCard({required this.index, required this.title, required this.category, required this.indexColor, this.isLocked = false, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(children: [
-            Container(
-              width: 40, height: 40,
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              alignment: Alignment.center,
-              child: Text(index, style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: indexColor)),
-            ),
-            const SizedBox(width: 16),
-            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(title, style: GoogleFonts.spaceGrotesk(fontSize: 14, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface)),
-              Text(category, style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w500, letterSpacing: 1, color: Theme.of(context).colorScheme.outline)),
-            ])),
-            Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.outline, size: 20),
-          ]),
+    return Opacity(
+      opacity: isLocked ? 0.5 : 1.0,
+      child: Material(
+        color: Theme.of(context).colorScheme.surfaceContainerLow,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(children: [
+              Container(
+                width: 40, height: 40,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                alignment: Alignment.center,
+                child: isLocked 
+                    ? Icon(Icons.lock_outline, color: Theme.of(context).colorScheme.outline, size: 18)
+                    : Text(index, style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: indexColor)),
+              ),
+              const SizedBox(width: 16),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(title, style: GoogleFonts.spaceGrotesk(fontSize: 14, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface)),
+                Text(category, style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w500, letterSpacing: 1, color: Theme.of(context).colorScheme.outline)),
+              ])),
+              Icon(Icons.arrow_forward, color: Theme.of(context).colorScheme.outline, size: 20),
+            ]),
+          ),
         ),
       ),
     );

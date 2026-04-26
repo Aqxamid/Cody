@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../providers/providers.dart';
+import '../screens/about_us_screen.dart';
 
 class SettingsDialog extends ConsumerWidget {
   const SettingsDialog({super.key});
@@ -64,49 +65,21 @@ class SettingsDialog extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 24),
-            Text(
-              'Preferences',
-              style: GoogleFonts.inter(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            const SizedBox(height: 8),
-            SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              title: Text(
-                'Sound Effects',
-                style: GoogleFonts.inter(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 15,
-                ),
-              ),
-              subtitle: Text(
-                'Haptic feedback and UI sounds',
-                style: GoogleFonts.inter(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  fontSize: 12,
-                ),
-              ),
-              value: settings.soundEffects,
-              onChanged: (bool value) {
-                ref.read(settingsProvider.notifier).toggleSound(value);
-              },
-            ),
-            const Divider(height: 32),
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: () {
-                  ref.read(onboardingProvider.notifier).resetOnboarding();
                   Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AboutUsScreen()),
+                  );
                 },
-                icon: const Icon(Icons.refresh, size: 18),
-                label: const Text('REPLAY WELCOME TOUR'),
+                icon: const Icon(Icons.groups_outlined, size: 18),
+                label: const Text('ABOUT US'),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  side: BorderSide(color: Theme.of(context).colorScheme.outline),
+                  side: BorderSide(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.4)),
+                  foregroundColor: Theme.of(context).colorScheme.primary,
                   textStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: 0.5),
                 ),
               ),

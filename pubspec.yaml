@@ -1,7 +1,7 @@
 name: cody
 description: Cody - A competitive programming mobile app
 publish_to: 'none'
-version: 1.2.0+2
+version: 1.4.0+3
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -22,26 +22,32 @@ dependencies:
   # Animations
   flutter_animate: ^4.5.0
 
-  # Local execution for Dart
-  dart_eval: ^0.7.1
-
   # UUID for submission IDs
   uuid: ^4.4.0
 
   cupertino_icons: ^1.0.6
   http: ^1.2.0
 
+  # Supabase (Auth + Database + Leaderboard)
+  supabase_flutter: ^2.5.0
+  url_launcher: ^6.3.0
+
+  # Splash intro video
+  video_player: ^2.9.1
+  chewie: ^1.8.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
   flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.4.0
+
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/playstore.png
+    - assets/app_icon.png
+    - assets/Allen.JPG
 
 flutter_launcher_icons:
   android: true
@@ -53,15 +59,15 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   color: "#FDFDFF"
-  image: "assets/playstore.png"
+  image: "assets/app_icon.png"
   color_dark: "#0F0F12"
-  image_dark: "assets/playstore.png"
+  image_dark: "assets/app_icon.png"
   android_gravity: center
   android_12:
-    image: "assets/playstore.png"
+    image: "assets/app_icon.png"
     color: "#FDFDFF"
     icon_background_color: "#FDFDFF"
-    image_dark: "assets/playstore.png"
+    image_dark: "assets/app_icon.png"
     color_dark: "#0F0F12"
 
 dependency_overrides:

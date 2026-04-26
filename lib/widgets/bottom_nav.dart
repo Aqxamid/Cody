@@ -9,19 +9,22 @@ class CodyBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 64,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLow,
-        border: Border(top: BorderSide(color: Theme.of(context).colorScheme.outlineVariant, width: 0.5)),
-      ),
-      child: Row(
-        children: [
-          _NavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'HOME', isActive: currentIndex == 0, onTap: () => onTap(0)),
-          _NavItem(icon: Icons.code_outlined, activeIcon: Icons.code, label: 'PROBLEMS', isActive: currentIndex == 1, onTap: () => onTap(1)),
-          _NavItem(icon: Icons.leaderboard_outlined, activeIcon: Icons.leaderboard, label: 'RANK', isActive: currentIndex == 2, onTap: () => onTap(2)),
-          _NavItem(icon: Icons.person_outline, activeIcon: Icons.person, label: 'PROFILE', isActive: currentIndex == 3, onTap: () => onTap(3)),
-        ],
+    return SafeArea(
+      top: false,
+      child: Container(
+        height: 64,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
+          border: Border(top: BorderSide(color: Theme.of(context).colorScheme.outlineVariant, width: 0.5)),
+        ),
+        child: Row(
+          children: [
+            _NavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'HOME', isActive: currentIndex == 0, onTap: () => onTap(0)),
+            _NavItem(icon: Icons.code_outlined, activeIcon: Icons.code, label: 'PROBLEMS', isActive: currentIndex == 1, onTap: () => onTap(1)),
+            _NavItem(icon: Icons.leaderboard_outlined, activeIcon: Icons.leaderboard, label: 'RANK', isActive: currentIndex == 2, onTap: () => onTap(2)),
+            _NavItem(icon: Icons.person_outline, activeIcon: Icons.person, label: 'PROFILE', isActive: currentIndex == 3, onTap: () => onTap(3)),
+          ],
+        ),
       ),
     );
   }

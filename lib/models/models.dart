@@ -109,8 +109,8 @@ class UserProfile {
     required this.badges,
   });
 
-  int get xpForCurrentLevel => level * 500;
-  int get xpForNextLevel => (level + 1) * 500;
+  int get xpForCurrentLevel => (level - 1) * 500;
+  int get xpForNextLevel => level * 500;
   double get levelProgress {
     final base = xpForCurrentLevel;
     final next = xpForNextLevel;
@@ -142,7 +142,8 @@ class UserProfile {
 class LeaderboardEntry {
   final int rank;
   final String username;
+  final String? avatarUrl;
   final int xp;
   final int solved;
-  const LeaderboardEntry({required this.rank, required this.username, required this.xp, required this.solved});
+  const LeaderboardEntry({required this.rank, required this.username, this.avatarUrl, required this.xp, required this.solved});
 }

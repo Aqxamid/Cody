@@ -12,7 +12,9 @@ class ProblemDetailScreen extends ConsumerWidget {
   final ValueChanged<int> onNavigate;
   final VoidCallback onStartCoding;
 
-  const ProblemDetailScreen({super.key, required this.problemId, required this.onNavigate, required this.onStartCoding});
+  final VoidCallback onBack;
+
+  const ProblemDetailScreen({super.key, required this.problemId, required this.onNavigate, required this.onStartCoding, required this.onBack});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,6 +41,7 @@ class ProblemDetailScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: onBack, color: Theme.of(context).colorScheme.primary),
         title: Text('Cody', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: -0.5)),
         actions: [IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context))],
       ),

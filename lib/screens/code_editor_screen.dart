@@ -11,8 +11,9 @@ import '../data/execution_service.dart';
 class CodeEditorScreen extends ConsumerStatefulWidget {
   final ValueChanged<int> onNavigate;
   final VoidCallback onRunComplete;
+  final VoidCallback onBack;
 
-  const CodeEditorScreen({super.key, required this.onNavigate, required this.onRunComplete});
+  const CodeEditorScreen({super.key, required this.onNavigate, required this.onRunComplete, required this.onBack});
 
   @override
   ConsumerState<CodeEditorScreen> createState() => _CodeEditorScreenState();
@@ -64,7 +65,7 @@ class _CodeEditorScreenState extends ConsumerState<CodeEditorScreen> {
       // Award XP if all passed
       if (result.xpEarned > 0) {
         await ref.read(userProvider.notifier).awardXp(result.xpEarned, editorState.problemId);
-        await ref.read(userProvider.notifier).incrementStreak();
+        await ref.read(userProvider.notifier).updateStreak();
       }
       widget.onRunComplete();
     }
@@ -98,15 +99,18 @@ class _CodeEditorScreenState extends ConsumerState<CodeEditorScreen> {
     final editorState = ref.watch(editorProvider);
     final problem = ProblemBank.getById(editorState.problemId);
 
+    if (problem == null) return const Scaffold(body: Center(child: CircularProgressIndicator()));
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: widget.onBack, color: Theme.of(context).colorScheme.primary),
         title: Text('Cody', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: -0.5)),
         actions: [
           IconButton(
-            icon: Icon(Icons.restart_alt, color: Theme.of(context).colorScheme.primary),
-            tooltip: 'Reset to starter code',
+            icon: Icon(Icons.refresh, color: Theme.of(context).colorScheme.outline),
             onPressed: () => _showResetDialog(),
+            tooltip: 'Reset to starter code',
           ),
           IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
@@ -122,33 +126,52 @@ class _CodeEditorScreenState extends ConsumerState<CodeEditorScreen> {
   }
 
   Widget _buildSubHeader(String language, String title) {
+    final langs = ['Python', 'Dart', 'C++', 'Java', 'JavaScript'];
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       color: Theme.of(context).colorScheme.surfaceContainerLow,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
           Icon(Icons.description_outlined, color: Theme.of(context).colorScheme.primary, size: 16),
           const SizedBox(width: 8),
-          Text(title, style: GoogleFonts.spaceGrotesk(fontSize: 15, fontWeight: FontWeight.w700)),
+          Expanded(child: Text(title, style: GoogleFonts.spaceGrotesk(fontSize: 15, fontWeight: FontWeight.w700), overflow: TextOverflow.ellipsis)),
         ]),
-        Container(
-          padding: const EdgeInsets.all(3),
-          color: Theme.of(context).colorScheme.surfaceContainerHigh,
-          child: Row(children: ['Python', 'Dart'].map((lang) {
-            final isSelected = language == lang;
-            return GestureDetector(
-              onTap: () => _switchLanguage(lang),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 150),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: isSelected ? Theme.of(context).colorScheme.primaryContainer : Colors.transparent,
-                  borderRadius: BorderRadius.circular(2),
+        const SizedBox(height: 8),
+        SizedBox(
+          height: 32,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: langs.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 6),
+            itemBuilder: (ctx, i) {
+              final lang = langs[i];
+              final isSelected = language == lang;
+              return GestureDetector(
+                onTap: () => _switchLanguage(lang),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.surfaceContainerHigh,
+                    borderRadius: BorderRadius.circular(20),
+                    border: isSelected ? null : Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+                  ),
+                  child: Text(
+                    lang,
+                    style: GoogleFonts.inter(
+                      fontSize: 12,
+                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
                 ),
-                child: Text(lang, style: GoogleFonts.inter(fontSize: 12, fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500, color: isSelected ? Theme.of(context).colorScheme.onPrimaryContainer : Theme.of(context).colorScheme.onSurfaceVariant)),
-              ),
-            );
-          }).toList()),
+              );
+            },
+          ),
         ),
       ]),
     );

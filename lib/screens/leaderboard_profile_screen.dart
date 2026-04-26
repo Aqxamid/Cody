@@ -6,6 +6,7 @@ import '../widgets/settings_dialog.dart';
 import '../providers/providers.dart';
 import '../data/problem_bank.dart';
 import '../models/models.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // ── Leaderboard ────────────────────────────────────────────────────────────────
 class LeaderboardScreen extends ConsumerWidget {
@@ -14,7 +15,7 @@ class LeaderboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final entries = ref.watch(leaderboardProvider);
+    final leaderboardAsync = ref.watch(leaderboardProvider);
     final user = ref.watch(userProvider);
 
     return Scaffold(
@@ -22,6 +23,10 @@ class LeaderboardScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Leaderboard', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 20, fontWeight: FontWeight.w900)),
         actions: [
+          IconButton(
+            icon: Icon(Icons.refresh, color: Theme.of(context).colorScheme.primary),
+            onPressed: () => ref.refresh(leaderboardProvider),
+          ),
           IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),
@@ -31,58 +36,114 @@ class LeaderboardScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.1),
           child: Row(children: [
-            Icon(Icons.person, color: Theme.of(context).colorScheme.primary, size: 20),
+            Text('#${user.globalRank}', style: GoogleFonts.spaceGrotesk(fontSize: 18, fontWeight: FontWeight.w900, color: Theme.of(context).colorScheme.primary)),
             const SizedBox(width: 12),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text('Your Ranking', style: GoogleFonts.inter(fontSize: 10, letterSpacing: 1.5, color: Theme.of(context).colorScheme.outline)),
               Text(user.username, style: GoogleFonts.spaceGrotesk(fontSize: 15, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface)),
             ])),
             Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              Text('#${user.globalRank}', style: GoogleFonts.spaceGrotesk(fontSize: 18, fontWeight: FontWeight.w900, color: Theme.of(context).colorScheme.primary)),
-              Text('${user.xp} XP', style: GoogleFonts.firaMono(fontSize: 11, color: Theme.of(context).colorScheme.tertiary)),
+              Text('${user.xp} XP', style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.tertiary)),
+              Text('${user.solvedProblemIds.length} solved', style: GoogleFonts.inter(fontSize: 11, color: Theme.of(context).colorScheme.outline)),
             ]),
           ]),
         ),
         Expanded(
-          child: ListView.separated(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
-            itemCount: entries.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
-            itemBuilder: (ctx, i) {
-              final e = entries[i];
-              final isCurrentUser = e.username == user.username;
-              final rankColors = [Theme.of(context).colorScheme.tertiary, Theme.of(context).colorScheme.primary, Theme.of(context).colorScheme.error];
-              final rankColor = e.rank <= 3 ? rankColors[e.rank - 1] : Theme.of(context).colorScheme.outline;
-
-              return Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: isCurrentUser ? Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.1) : Theme.of(context).colorScheme.surfaceContainerLow,
-                  border: isCurrentUser ? Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3)) : null,
-                ),
-                child: Row(children: [
-                  Container(
-                    width: 36, height: 36,
-                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                    alignment: Alignment.center,
-                    child: Text('#${e.rank}', style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.w900, fontSize: 13, color: rankColor)),
+          child: leaderboardAsync.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (_, __) => Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Icon(Icons.cloud_off, color: Theme.of(context).colorScheme.outline, size: 48),
+                const SizedBox(height: 12),
+                Text('Could not load leaderboard',
+                    style: GoogleFonts.inter(color: Theme.of(context).colorScheme.outline, fontSize: 14)),
+                const SizedBox(height: 8),
+                TextButton(onPressed: () => ref.refresh(leaderboardProvider), child: const Text('Retry')),
+              ]),
+            ),
+            data: (entries) => entries.isEmpty
+                ? Center(child: Text('No rankings yet. Be the first!',
+                    style: GoogleFonts.inter(color: Theme.of(context).colorScheme.outline, fontSize: 14)))
+                : ListView.separated(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
+                    itemCount: entries.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 8),
+                    itemBuilder: (ctx, i) {
+                      final e = entries[i];
+                      final isCurrentUser = e.username == user.username;
+                      String? effectiveAvatarUrl;
+                      if (isCurrentUser) {
+                        effectiveAvatarUrl = Supabase.instance.client.auth.currentUser?.userMetadata?['avatar_url'] as String?;
+                      } else {
+                        effectiveAvatarUrl = e.avatarUrl;
+                      }
+                          
+                      final rankColors = [
+                        Theme.of(context).colorScheme.tertiary,
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.error
+                      ];
+                      final rankColor = e.rank <= 3 ? rankColors[e.rank - 1] : Theme.of(context).colorScheme.outline;
+                      return Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: isCurrentUser
+                              ? Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.1)
+                              : Theme.of(context).colorScheme.surfaceContainerLow,
+                          border: isCurrentUser ? Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3)) : null,
+                        ),
+                        child: Row(children: [
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Container(
+                                width: 36, height: 36,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(4),
+                                  image: effectiveAvatarUrl != null ? DecorationImage(image: NetworkImage(effectiveAvatarUrl), fit: BoxFit.cover) : null,
+                                ),
+                                alignment: Alignment.center,
+                                child: effectiveAvatarUrl == null
+                                    ? Text(
+                                        e.username.isNotEmpty ? e.username.substring(0, e.username.length.clamp(0, 2)).toUpperCase() : '?',
+                                        style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.w900, fontSize: 14, color: Theme.of(context).colorScheme.onPrimaryContainer),
+                                      )
+                                    : null,
+                              ),
+                              Positioned(
+                                bottom: -6,
+                                right: -6,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.surface,
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(color: rankColor, width: 1.5),
+                                  ),
+                                  child: Text('#${e.rank}', style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.w900, fontSize: 9, color: rankColor)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Row(children: [
+                              Text(e.username, style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.w700, fontSize: 14, color: Theme.of(context).colorScheme.onSurface)),
+                              if (isCurrentUser) ...[
+                                const SizedBox(width: 8),
+                                Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
+                                  child: Text('YOU', style: GoogleFonts.inter(fontSize: 8, fontWeight: FontWeight.w700, letterSpacing: 1, color: Theme.of(context).colorScheme.primary))),
+                              ],
+                            ]),
+                            Text('${e.solved} solved', style: GoogleFonts.inter(fontSize: 11, color: Theme.of(context).colorScheme.outline)),
+                          ])),
+                          Text('${e.xp} XP', style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.tertiary)),
+                        ]),
+                      );
+                    },
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(children: [
-                      Text(e.username, style: GoogleFonts.spaceGrotesk(fontWeight: FontWeight.w700, fontSize: 14, color: Theme.of(context).colorScheme.onSurface)),
-                      if (isCurrentUser) ...[
-                        const SizedBox(width: 8),
-                        Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-                          child: Text('YOU', style: GoogleFonts.inter(fontSize: 8, fontWeight: FontWeight.w700, letterSpacing: 1, color: Theme.of(context).colorScheme.primary))),
-                      ],
-                    ]),
-                    Text('${e.solved} solved', style: GoogleFonts.inter(fontSize: 11, color: Theme.of(context).colorScheme.outline)),
-                  ])),
-                  Text('${e.xp} XP', style: GoogleFonts.firaMono(fontSize: 13, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.tertiary)),
-                ]),
-              );
-            },
           ),
         ),
       ]),
@@ -138,18 +199,27 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _buildProfileHeader(BuildContext context, UserProfile user) {
+    final authUser = Supabase.instance.client.auth.currentUser;
+    final avatarUrl = authUser?.userMetadata?['avatar_url'] as String?;
+
     return Container(
       padding: const EdgeInsets.all(20),
       color: Theme.of(context).colorScheme.surfaceContainerLow,
       child: Row(children: [
         Container(
           width: 72, height: 72,
-          decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, borderRadius: BorderRadius.circular(4)),
-          alignment: Alignment.center,
-          child: Text(
-            user.username.substring(0, user.username.length.clamp(0, 2)).toUpperCase(),
-            style: GoogleFonts.spaceGrotesk(fontSize: 26, fontWeight: FontWeight.w900, color: Theme.of(context).colorScheme.onPrimaryContainer),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primaryContainer, 
+            borderRadius: BorderRadius.circular(4),
+            image: avatarUrl != null ? DecorationImage(image: NetworkImage(avatarUrl), fit: BoxFit.cover) : null,
           ),
+          alignment: Alignment.center,
+          child: avatarUrl == null
+            ? Text(
+                user.username.isNotEmpty ? user.username.substring(0, user.username.length.clamp(0, 2)).toUpperCase() : '?',
+                style: GoogleFonts.spaceGrotesk(fontSize: 26, fontWeight: FontWeight.w900, color: Theme.of(context).colorScheme.onPrimaryContainer),
+              )
+            : null,
         ),
         const SizedBox(width: 20),
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
