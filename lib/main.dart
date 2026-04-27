@@ -17,6 +17,7 @@ import 'screens/problem_detail_screen.dart';
 import 'screens/code_editor_screen.dart';
 import 'screens/execution_results_screen.dart';
 import 'screens/leaderboard_profile_screen.dart';
+import 'screens/admin_problem_builder_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,6 +76,9 @@ class _AppRouterState extends ConsumerState<_AppRouter> {
   }
 
   Future<void> _determineRoute() async {
+    // Fetch problems from Supabase in the background
+    ProblemBank.loadFromSupabase();
+
     final prefs = await SharedPreferences.getInstance();
     final splashShown = prefs.getBool('splash_shown') ?? false;
     if (!mounted) return;
@@ -161,7 +165,7 @@ class _AppRouterState extends ConsumerState<_AppRouter> {
 enum _Route { loading, splash, onboarding, auth, main }
 
 // ── Main Navigator ─────────────────────────────────────────────────────────────
-enum _Screen { dashboard, problemsList, problemDetail, editor, results, leaderboard, profile }
+enum _Screen { dashboard, problemsList, problemDetail, editor, results, leaderboard, profile, adminBuilder }
 
 class MainNavigator extends ConsumerStatefulWidget {
   const MainNavigator({super.key});
@@ -235,13 +239,14 @@ class _MainNavigatorState extends ConsumerState<MainNavigator> {
         }
       },
       child: switch (_screen) {
-        _Screen.dashboard => DashboardScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected),
+        _Screen.dashboard => DashboardScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected, onAdminTap: () => _goTo(_Screen.adminBuilder)),
         _Screen.problemsList => ProblemsListScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected),
         _Screen.problemDetail => ProblemDetailScreen(problemId: _currentProblemId, onNavigate: _onNavigate, onStartCoding: () => _goTo(_Screen.editor), onBack: () => _goTo(_Screen.problemsList)),
         _Screen.editor => CodeEditorScreen(onNavigate: _onNavigate, onRunComplete: () => _goTo(_Screen.results), onBack: () => _goTo(_Screen.problemDetail)),
         _Screen.results => ExecutionResultsScreen(onNavigate: _onNavigate, onSubmit: () => _goTo(_Screen.dashboard), onRetry: () => _goTo(_Screen.editor)),
         _Screen.leaderboard => LeaderboardScreen(onNavigate: _onNavigate),
         _Screen.profile => ProfileScreen(onNavigate: _onNavigate),
+        _Screen.adminBuilder => AdminProblemBuilderScreen(onBack: () => _goTo(_Screen.dashboard)),
       },
     );
   }

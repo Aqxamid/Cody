@@ -1,7 +1,8 @@
 import '../models/models.dart';
+import '../services/problem_service.dart';
 
 class ProblemBank {
-  static final List<Problem> problems = [
+  static List<Problem> problems = [
     // ── LEVEL 1: BASICS ─────────────────────────────────────────────────────
     Problem(
       id: 'sum_two',
@@ -750,7 +751,33 @@ class ProblemBank {
       problems.where((p) => p.difficulty == d).toList();
 
   static Problem get dailyChallenge {
+    if (problems.isEmpty) return const Problem(id: 'dummy', title: 'Loading...', description: '', difficulty: Difficulty.easy, tags: [], examples: [], testCases: [], constraints: '', xpReward: 0, functionName: '', starterCode: {});
     final dayOfYear = DateTime.now().difference(DateTime(DateTime.now().year)).inDays;
     return problems[dayOfYear % problems.length];
+  }
+
+  static Future<void> loadFromSupabase() async {
+    final dbProblems = await ProblemService.fetchProblems();
+    if (dbProblems.isNotEmpty) {
+      // Merge local and DB problems (DB takes precedence if same ID)
+      final Map<String, Problem> merged = {};
+      for (final p in problems) {
+        merged[p.id] = p;
+      }
+      for (final p in dbProblems) {
+        merged[p.id] = p;
+      }
+
+      final allList = merged.values.toList();
+
+      // Group them by difficulty to maintain sequential unlocking rules
+      // (User must solve all Easy before seeing Medium, etc.)
+      final easy = allList.where((p) => p.difficulty == Difficulty.easy).toList();
+      final medium = allList.where((p) => p.difficulty == Difficulty.medium).toList();
+      final hard = allList.where((p) => p.difficulty == Difficulty.hard).toList();
+
+      // Overwrite the problems list in strict difficulty order
+      problems = [...easy, ...medium, ...hard];
+    }
   }
 }

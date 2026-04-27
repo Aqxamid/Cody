@@ -92,6 +92,7 @@ class ExecutionResult {
 // ── User / progression model ────────────────────────────────────────────────────
 class UserProfile {
   final String username;
+  final String role;
   final int xp;
   final int level;
   final int globalRank;
@@ -101,6 +102,7 @@ class UserProfile {
 
   const UserProfile({
     required this.username,
+    this.role = 'player',
     required this.xp,
     required this.level,
     required this.globalRank,
@@ -119,6 +121,7 @@ class UserProfile {
 
   UserProfile copyWith({
     String? username,
+    String? role,
     int? xp,
     int? level,
     int? globalRank,
@@ -128,6 +131,7 @@ class UserProfile {
   }) {
     return UserProfile(
       username: username ?? this.username,
+      role: role ?? this.role,
       xp: xp ?? this.xp,
       level: level ?? this.level,
       globalRank: globalRank ?? this.globalRank,

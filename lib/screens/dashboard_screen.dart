@@ -10,8 +10,9 @@ import '../models/models.dart';
 class DashboardScreen extends ConsumerWidget {
   final ValueChanged<int> onNavigate;
   final ValueChanged<String> onProblemSelected;
+  final VoidCallback? onAdminTap;
 
-  const DashboardScreen({super.key, required this.onNavigate, required this.onProblemSelected});
+  const DashboardScreen({super.key, required this.onNavigate, required this.onProblemSelected, this.onAdminTap});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,6 +24,12 @@ class DashboardScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Cody', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: -0.5)),
         actions: [
+          if (user.role == 'admin')
+            IconButton(
+              icon: Icon(Icons.add_box_outlined, color: Theme.of(context).colorScheme.tertiary),
+              onPressed: onAdminTap,
+              tooltip: 'Admin Builder',
+            ),
           IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),

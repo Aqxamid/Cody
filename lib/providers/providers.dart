@@ -108,8 +108,9 @@ class UserNotifier extends StateNotifier<UserProfile> {
     final solved = _prefs.getStringList('solved_ids')?.toSet() ?? {};
     final badges = _prefs.getStringList('badges') ?? [];
     final username = _prefs.getString('username') ?? 'CodeNinja42';
+    final role = _prefs.getString('user_role') ?? 'player';
     state = UserProfile(
-      username: username, xp: xp, level: _levelFromXp(xp),
+      username: username, role: role, xp: xp, level: _levelFromXp(xp),
       globalRank: 1204, streak: streak,
       solvedProblemIds: solved, badges: badges,
     );
@@ -203,8 +204,10 @@ class UserNotifier extends StateNotifier<UserProfile> {
     final xp = (data['xp'] as int?) ?? 0;
     final solved = Set<String>.from((data['solved_problem_ids'] as List<dynamic>?) ?? []);
     final badges = List<String>.from((data['badges'] as List<dynamic>?) ?? []);
+    final role = (data['role'] as String?) ?? 'player';
     state = UserProfile(
       username: (data['display_name'] as String?) ?? state.username,
+      role: role,
       xp: xp, level: _levelFromXp(xp),
       globalRank: state.globalRank,
       streak: (data['streak'] as int?) ?? 0,
@@ -214,6 +217,7 @@ class UserNotifier extends StateNotifier<UserProfile> {
     await _prefs.setInt('user_streak', state.streak);
     await _prefs.setStringList('solved_ids', solved.toList());
     await _prefs.setStringList('badges', badges);
+    await _prefs.setString('user_role', role);
   }
 }
 
