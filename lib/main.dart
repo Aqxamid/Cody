@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 import 'config/app_config.dart';
@@ -191,14 +192,57 @@ class _MainNavigatorState extends ConsumerState<MainNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return switch (_screen) {
-      _Screen.dashboard => DashboardScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected),
-      _Screen.problemsList => ProblemsListScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected),
-      _Screen.problemDetail => ProblemDetailScreen(problemId: _currentProblemId, onNavigate: _onNavigate, onStartCoding: () => _goTo(_Screen.editor), onBack: () => _goTo(_Screen.problemsList)),
-      _Screen.editor => CodeEditorScreen(onNavigate: _onNavigate, onRunComplete: () => _goTo(_Screen.results), onBack: () => _goTo(_Screen.problemDetail)),
-      _Screen.results => ExecutionResultsScreen(onNavigate: _onNavigate, onSubmit: () => _goTo(_Screen.dashboard), onRetry: () => _goTo(_Screen.editor)),
-      _Screen.leaderboard => LeaderboardScreen(onNavigate: _onNavigate),
-      _Screen.profile => ProfileScreen(onNavigate: _onNavigate),
-    };
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
+
+        // Custom back button routing
+        if (_screen == _Screen.editor) {
+          _goTo(_Screen.problemDetail);
+        } else if (_screen == _Screen.problemDetail) {
+          _goTo(_Screen.problemsList);
+        } else if (_screen == _Screen.results) {
+          _goTo(_Screen.dashboard);
+        } else if (_screen != _Screen.dashboard) {
+          // If on main nav tabs other than dashboard, go back to dashboard
+          _goTo(_Screen.dashboard);
+        } else {
+          // On Dashboard: Prompt to exit
+          final shouldPop = await showDialog<bool>(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              title: Text('Exit Cody?', style: const TextStyle(fontWeight: FontWeight.bold)),
+              content: const Text('Are you sure you want to exit the app?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('CANCEL', style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold)),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('EXIT', style: TextStyle(color: Theme.of(context).colorScheme.error, fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+          );
+
+          if (shouldPop ?? false) {
+            SystemNavigator.pop();
+          }
+        }
+      },
+      child: switch (_screen) {
+        _Screen.dashboard => DashboardScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected),
+        _Screen.problemsList => ProblemsListScreen(onNavigate: _onNavigate, onProblemSelected: _onProblemSelected),
+        _Screen.problemDetail => ProblemDetailScreen(problemId: _currentProblemId, onNavigate: _onNavigate, onStartCoding: () => _goTo(_Screen.editor), onBack: () => _goTo(_Screen.problemsList)),
+        _Screen.editor => CodeEditorScreen(onNavigate: _onNavigate, onRunComplete: () => _goTo(_Screen.results), onBack: () => _goTo(_Screen.problemDetail)),
+        _Screen.results => ExecutionResultsScreen(onNavigate: _onNavigate, onSubmit: () => _goTo(_Screen.dashboard), onRetry: () => _goTo(_Screen.editor)),
+        _Screen.leaderboard => LeaderboardScreen(onNavigate: _onNavigate),
+        _Screen.profile => ProfileScreen(onNavigate: _onNavigate),
+      },
+    );
   }
 }
