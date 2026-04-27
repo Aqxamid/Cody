@@ -23,10 +23,6 @@ class LeaderboardScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Leaderboard', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 20, fontWeight: FontWeight.w900)),
         actions: [
-          IconButton(
-            icon: Icon(Icons.refresh, color: Theme.of(context).colorScheme.primary),
-            onPressed: () => ref.refresh(leaderboardProvider),
-          ),
           IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),

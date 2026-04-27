@@ -12,15 +12,21 @@ class ProfileService {
     required int streak,
     required List<String> solvedIds,
     required List<String> badges,
+    String? photoUrl,
   }) async {
     try {
+      final user = Supabase.instance.client.auth.currentUser;
+      final avatarUrl = photoUrl
+          ?? user?.userMetadata?['avatar_url'] as String?;
       await _client.from('profiles').upsert({
         'id': userId,
         'display_name': username,
+        if (avatarUrl != null) 'photo_url': avatarUrl,
         'xp': xp,
         'streak': streak,
         'solved_problem_ids': solvedIds,
         'badges': badges,
+        'last_active_date': DateTime.now().toIso8601String(),
         'updated_at': DateTime.now().toIso8601String(),
       });
     } catch (e) {

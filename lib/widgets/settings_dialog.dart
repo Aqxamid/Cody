@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../providers/providers.dart';
 import '../screens/about_us_screen.dart';
 
@@ -84,6 +85,27 @@ class SettingsDialog extends ConsumerWidget {
                 ),
               ),
             ),
+            // Show logout only if signed in
+            if (Supabase.instance.client.auth.currentUser != null) ...[  
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                    await ref.read(authProvider.notifier).signOut();
+                  },
+                  icon: const Icon(Icons.logout, size: 18),
+                  label: const Text('SIGN OUT'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    side: BorderSide(color: Theme.of(context).colorScheme.error.withValues(alpha: 0.5)),
+                    foregroundColor: Theme.of(context).colorScheme.error,
+                    textStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: 0.5),
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),

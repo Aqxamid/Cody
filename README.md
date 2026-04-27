@@ -1,4 +1,4 @@
-# Cody - Competitive Programming IDE
+# Cody - Competitive Programming Platform
 
 Cody is a mobile competitive programming platform designed for practicing competitive programming. This application provides a curated learning path through 37 categorized challenges, allowing users to solve algorithmic problems in Python, Dart, C++, Java, and JavaScript on a mobile device.
 
@@ -34,3 +34,8 @@ This project is intended for educational purposes as part of a university-level 
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributors
+
+- **[Jeffrey Balmedina](https://github.com/balmedinajeffrey-art)** – Led UI/UX design and developed the initial MVP, shaping the user experience and interface foundation of Cody.
+- **[Allen Ronn Parado](https://github.com/Aqxamid)** – Lead Developer; handled feature expansion, system architecture, and overall implementation.

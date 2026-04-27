@@ -28,6 +28,9 @@ class AuthService {
         email: email,
         password: password,
         data: {'username': username},
+        // Ensures the verification link in the email opens the app
+        // instead of redirecting to localhost.
+        emailRedirectTo: AppConfig.oauthRedirectUrl,
       );
       if (res.user != null) {
         await EmailService.sendWelcome(username, email);

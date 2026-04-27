@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 import 'config/app_config.dart';
 import 'theme/cody_theme.dart';
@@ -97,6 +97,11 @@ class _AppRouterState extends ConsumerState<_AppRouter> {
   void _afterOnboarding() {
     final authState = ref.read(authProvider);
     if (authState.isAuthenticated) {
+      // Load Supabase data for existing authenticated session (e.g. app restart)
+      final user = Supabase.instance.client.auth.currentUser;
+      if (user != null) {
+        ref.read(userProvider.notifier).loadFromSupabase(user.id);
+      }
       setState(() => _route = _Route.main);
     } else {
       setState(() => _route = _Route.auth);
@@ -105,6 +110,22 @@ class _AppRouterState extends ConsumerState<_AppRouter> {
 
   @override
   Widget build(BuildContext context) {
+    // Reactively listen to auth state changes so that Google OAuth deep-link
+    // callbacks (which fire onAuthStateChange) automatically navigate the app.
+    ref.listen<AuthState>(authProvider, (previous, next) {
+      if (next.isAuthenticated && _route == _Route.auth) {
+        // Google OAuth or any external auth callback landed — load data & go home
+        final user = Supabase.instance.client.auth.currentUser;
+        if (user != null) {
+          ref.read(userProvider.notifier).loadFromSupabase(user.id);
+        }
+        setState(() => _route = _Route.main);
+      } else if (!next.isAuthenticated && _route == _Route.main) {
+        // Signed out from settings — go back to auth
+        setState(() => _route = _Route.auth);
+      }
+    });
+
     return switch (_route) {
       _Route.loading => const Scaffold(
           backgroundColor: Color(0xFF0F0F12),
@@ -122,7 +143,7 @@ class _AppRouterState extends ConsumerState<_AppRouter> {
         ),
       _Route.auth => AuthScreen(
           onAuthenticated: () {
-            // Sync profile from Supabase after sign-in
+            // Email/password sign-in — sync profile then navigate
             final user = Supabase.instance.client.auth.currentUser;
             if (user != null) {
               ref.read(userProvider.notifier).loadFromSupabase(user.id);
