@@ -14,7 +14,7 @@ class AppConfig {
   static const String brevoApiKey = 'YOUR_BREVO_API_KEY';
 
   /// Sender name shown in welcome emails
-  static const String brevoSenderName = 'Cody App';
+  static const String brevoSenderName = 'Change in production';
 
   /// Sender email address (must be verified in Brevo)
   static const String brevoSenderEmail = 'noreply@yourdomain.com';
@@ -22,6 +22,6 @@ class AppConfig {
 
   // ── OAuth Deep Link ───────────────────────────────────────────────────────────
   /// Redirect URI registered in Supabase Auth → URL Configuration
-  static const String oauthRedirectUrl = 'com.cody.app://login-callback';
+  static const String oauthRedirectUrl = 'Change in production';
 
 }

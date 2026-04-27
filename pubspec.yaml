@@ -1,7 +1,7 @@
 name: cody
 description: Cody - A competitive programming mobile app
 publish_to: 'none'
-version: 1.4.0+3
+version: 1.5.0+4
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
