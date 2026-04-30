@@ -112,11 +112,11 @@ class _CodeEditorScreenState extends ConsumerState<CodeEditorScreen> {
             onPressed: () => _showResetDialog(),
             tooltip: 'Reset to starter code',
           ),
-          IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
+          IconButton(icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),
       body: Column(children: [
-        _buildSubHeader(editorState.language, problem?.title ?? ''),
+        _buildSubHeader(editorState.language, problem.title),
         Expanded(child: _buildEditorArea()),
         _buildAccessoryKeyboard(),
         _buildActionBar(),

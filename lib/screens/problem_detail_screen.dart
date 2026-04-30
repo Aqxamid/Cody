@@ -43,7 +43,7 @@ class ProblemDetailScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: onBack, color: Theme.of(context).colorScheme.primary),
         title: Text('Cody', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 22, fontWeight: FontWeight.w900, letterSpacing: -0.5)),
-        actions: [IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context))],
+        actions: [IconButton(icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context))],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),

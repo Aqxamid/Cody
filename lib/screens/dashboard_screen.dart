@@ -6,6 +6,7 @@ import '../widgets/settings_dialog.dart';
 import '../providers/providers.dart';
 import '../data/problem_bank.dart';
 import '../models/models.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DashboardScreen extends ConsumerWidget {
   final ValueChanged<int> onNavigate;
@@ -30,24 +31,34 @@ class DashboardScreen extends ConsumerWidget {
               onPressed: onAdminTap,
               tooltip: 'Admin Builder',
             ),
-          IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
+          IconButton(icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildLevelSection(context, user),
-            const SizedBox(height: 16),
-            _buildXpProgress(context, user),
-            const SizedBox(height: 24),
-            _buildDailyChallenge(context, daily),
-            const SizedBox(height: 24),
-            _buildStatsGrid(context, user),
-            const SizedBox(height: 32),
-            _buildRecommended(context, user),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await ProblemBank.loadFromSupabase();
+          final authId = Supabase.instance.client.auth.currentUser?.id;
+          if (authId != null) {
+            await ref.read(userProvider.notifier).loadFromSupabase(authId);
+          }
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildLevelSection(context, user),
+              const SizedBox(height: 16),
+              _buildXpProgress(context, user),
+              const SizedBox(height: 24),
+              _buildDailyChallenge(context, daily),
+              const SizedBox(height: 24),
+              _buildStatsGrid(context, user),
+              const SizedBox(height: 32),
+              _buildRecommended(context, user),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: CodyBottomNav(currentIndex: 0, onTap: onNavigate),

@@ -40,7 +40,7 @@ class ProfileService {
     try {
       final data = await _client
           .from('profiles')
-          .select('display_name, xp, solved_problem_ids')
+          .select('display_name, xp, solved_problem_ids, photo_url')
           .order('xp', ascending: false)
           .limit(50);
       return List<Map<String, dynamic>>.from(data);
@@ -71,7 +71,7 @@ class ProfileService {
           .select('id')
           .gt('xp', userXp)
           .count(CountOption.exact);
-      return (response.count ?? 0) + 1;
+      return response.count + 1;
     } catch (_) {
       return 1204;
     }

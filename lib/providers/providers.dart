@@ -313,7 +313,7 @@ final leaderboardProvider = FutureProvider<List<LeaderboardEntry>>((ref) async {
       return LeaderboardEntry(
         rank: i + 1,
         username: (row['display_name'] as String?) ?? 'Unknown',
-        avatarUrl: null, // Removed DB dependency
+        avatarUrl: row['photo_url'] as String?,
         xp: (row['xp'] as int?) ?? 0,
         solved: solved,
       );

@@ -48,6 +48,9 @@ flutter:
   assets:
     - assets/app_icon.png
     - assets/Allen.JPG
+    - assets/Jeffrey.jpg
+    - assets/Mark.jpg
+    - assets/Ayela.jpg
 
 flutter_launcher_icons:
   android: true

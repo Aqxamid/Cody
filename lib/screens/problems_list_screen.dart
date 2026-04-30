@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../theme/cody_theme.dart';
+
 import '../widgets/bottom_nav.dart';
 import '../widgets/settings_dialog.dart';
 import '../providers/providers.dart';
@@ -32,7 +32,7 @@ class _ProblemsListScreenState extends ConsumerState<ProblemsListScreen> {
       appBar: AppBar(
         title: Text('Challenges', style: GoogleFonts.spaceGrotesk(color: Theme.of(context).colorScheme.primary, fontSize: 20, fontWeight: FontWeight.w900)),
         actions: [
-          IconButton(icon: Icon(Icons.settings_outlined, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
+          IconButton(icon: Icon(Icons.settings, color: Theme.of(context).colorScheme.primary), onPressed: () => showSettingsModal(context)),
         ],
       ),
       body: Column(children: [
@@ -55,11 +55,17 @@ class _ProblemsListScreenState extends ConsumerState<ProblemsListScreen> {
           ),
         ),
         Expanded(
-          child: ListView.separated(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
-            itemCount: problems.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 8),
-            itemBuilder: (ctx, i) {
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await ProblemBank.loadFromSupabase();
+              if (mounted) setState(() {});
+            },
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
+              itemCount: problems.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 8),
+              itemBuilder: (ctx, i) {
               final p = problems[i];
               final firstUnsolvedIndex = ProblemBank.problems.indexWhere((prob) => !user.solvedProblemIds.contains(prob.id));
               final absoluteIndex = ProblemBank.problems.indexOf(p);
@@ -122,6 +128,7 @@ class _ProblemsListScreenState extends ConsumerState<ProblemsListScreen> {
               ),
             );
           },
+            ),
           ),
         ),
       ]),

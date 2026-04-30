@@ -31,6 +31,7 @@ class _AdminProblemBuilderScreenState extends State<AdminProblemBuilderScreen> {
   String _starterJS = 'function solve(nums) {\n    // Implement here\n    return 0;\n}';
   String _starterJava = 'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}';
   String _starterCpp = 'int solve(vector<int>& nums) {\n    // Implement here\n    return 0;\n}';
+  String _starterC = 'int solve(int* nums, int numsSize) {\n    // Implement here\n    return 0;\n}';
 
   bool _isUploading = false;
 
@@ -68,6 +69,7 @@ class _AdminProblemBuilderScreenState extends State<AdminProblemBuilderScreen> {
           'JavaScript': _starterJS,
           'Java': _starterJava,
           'C++': _starterCpp,
+          'C': _starterC,
         },
       );
 
