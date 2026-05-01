@@ -83,41 +83,116 @@ class ExecutionService {
   }
 
   static String _cppHarness(Problem p, String code, bool isSubmission) {
-    const inc = '#include <iostream>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\n';
+    const inc = '#include <iostream>\n'
+        '#include <vector>\n'
+        '#include <string>\n'
+        '#include <algorithm>\n'
+        '#include <map>\n'
+        '#include <set>\n'
+        '#include <utility>\n'
+        'using namespace std;\n\n'
+        '// Helper to print various types\n'
+        'template<typename T> void print_val(const T& v) { cout << v; }\n'
+        'void print_val(const string& v) { cout << "\\"" << v << "\\""; }\n'
+        'void print_val(bool v) { cout << (v ? "true" : "false"); }\n\n'
+        'template<typename T1, typename T2> void print_val(const pair<T1, T2>& p) {\n'
+        '    cout << "("; print_val(p.first); cout << ", "; print_val(p.second); cout << ")";\n'
+        '}\n\n'
+        'template<typename T> void print_val(const vector<T>& v) {\n'
+        '    cout << "[";\n'
+        '    for (size_t i = 0; i < v.size(); ++i) {\n'
+        '        print_val(v[i]);\n'
+        '        if (i < v.size() - 1) cout << ", ";\n'
+        '    }\n'
+        '    cout << "]";\n'
+        '}\n\n'
+        'template<typename K, typename V> void print_val(const map<K, V>& m) {\n'
+        '    cout << "{";\n'
+        '    size_t i = 0;\n'
+        '    for (typename map<K, V>::const_iterator it = m.begin(); it != m.end(); ++it) {\n'
+        '        print_val(it->first); cout << ": "; print_val(it->second);\n'
+        '        if (++i < m.size()) cout << ", ";\n'
+        '    }\n'
+        '    cout << "}";\n'
+        '}\n\n';
+
     if (!isSubmission) {
       final args = _simpleArgs(p.testCases.first.input);
-      return '${inc}$code\n\nint main() {\n    // Call: ${p.functionName}($args)\n    cout << ${p.functionName}($args) << endl;\n    return 0;\n}\n';
+      return '${inc}$code\n\nint main() {\n    print_val(${p.functionName}($args));\n    cout << endl;\n    return 0;\n}\n';
     }
     String main = '\n\nint main() {\n';
     for (final tc in p.testCases) {
       final args = _simpleArgs(tc.input);
-      main += '    cout << "---CASE_START---" << endl;\n    cout << ${p.functionName}($args) << endl;\n    cout << "---CASE_END---" << endl;\n';
+      main += '    cout << "---CASE_START---" << endl;\n'
+          '    print_val(${p.functionName}($args));\n'
+          '    cout << endl << "---CASE_END---" << endl;\n';
     }
     return '$inc$code${main}    return 0;\n}\n';
   }
 
+  static String _javaArgs(String input) {
+    final parts = input.split('\n');
+    final formatted = parts.map((part) {
+      part = part.trim();
+      if (part.startsWith('[') && part.endsWith(']')) {
+        if (part.startsWith('[[') && part.endsWith(']]')) {
+          String inner = part.replaceAll('[', '{').replaceAll(']', '}');
+          if (part.contains('"') || part.contains("'")) {
+            return 'new String[][]$inner';
+          }
+          return 'new int[][]$inner';
+        } else {
+          String inner = part.replaceAll('[', '{').replaceAll(']', '}');
+          if (part.contains('"') || part.contains("'")) {
+            return 'new String[]$inner';
+          }
+          return 'new int[]$inner';
+        }
+      }
+      return part;
+    }).join(', ');
+    return formatted;
+  }
+
   static String _javaHarness(Problem p, String code, bool isSubmission) {
+    const inc = 'import java.util.*;\n\n';
+    const helper = '    static void print_val(Object o) {\n'
+        '        if (o == null) { System.out.print("null"); }\n'
+        '        else if (o instanceof int[]) { System.out.print(Arrays.toString((int[])o)); }\n'
+        '        else if (o instanceof int[][]) { System.out.print(Arrays.deepToString((int[][])o)); }\n'
+        '        else if (o instanceof String[]) { System.out.print(Arrays.toString((String[])o)); }\n'
+        '        else if (o instanceof Object[]) { System.out.print(Arrays.deepToString((Object[])o)); }\n'
+        '        else { System.out.print(o); }\n'
+        '    }\n';
+
     if (!isSubmission) {
-      final args = _simpleArgs(p.testCases.first.input);
-      return 'public class main {\n    $code\n\n    public static void main(String[] args) {\n        System.out.println(${p.functionName}($args));\n    }\n}\n';
+      final args = _javaArgs(p.testCases.first.input);
+      return '${inc}public class main {\n$helper\n    $code\n\n    public static void main(String[] args) {\n        print_val(${p.functionName}($args));\n        System.out.println();\n    }\n}\n';
     }
     String main = '\n    public static void main(String[] args) {\n';
     for (final tc in p.testCases) {
-      final args = _simpleArgs(tc.input);
-      main += '        System.out.println("---CASE_START---");\n        try {\n            System.out.println(${p.functionName}($args));\n        } catch (Exception e) {\n            System.out.println("ERROR: " + e.getMessage());\n        }\n        System.out.println("---CASE_END---");\n';
+      final args = _javaArgs(tc.input);
+      main += '        System.out.println("---CASE_START---");\n'
+          '        try {\n'
+          '            print_val(${p.functionName}($args));\n'
+          '            System.out.println();\n'
+          '        } catch (Exception e) {\n'
+          '            System.out.println("ERROR: " + e.getMessage());\n'
+          '        }\n'
+          '        System.out.println("---CASE_END---");\n';
     }
-    return 'public class main {\n    $code\n$main    }\n}\n';
+    return '${inc}public class main {\n$helper\n    $code\n$main    }\n}\n';
   }
 
   static String _jsHarness(Problem p, String code, bool isSubmission) {
     if (!isSubmission) {
       final args = p.testCases.first.input.replaceAll('\n', ', ');
-      return '$code\n\nconsole.log(${p.functionName}($args));\n';
+      return '$code\n\nconsole.log(JSON.stringify(${p.functionName}($args)));\n';
     }
     String h = '\n';
     for (final tc in p.testCases) {
       final args = tc.input.replaceAll('\n', ', ');
-      h += 'console.log("---CASE_START---");\ntry {\n    console.log(${p.functionName}($args));\n} catch(e) {\n    console.log("ERROR: " + e.message);\n}\nconsole.log("---CASE_END---");\n';
+      h += 'console.log("---CASE_START---");\ntry {\n    let result = ${p.functionName}($args);\n    console.log(result !== undefined ? JSON.stringify(result) : "null");\n} catch(e) {\n    console.log("ERROR: " + e.message);\n}\nconsole.log("---CASE_END---");\n';
     }
     return code + h;
   }
