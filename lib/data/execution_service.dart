@@ -8,20 +8,23 @@ class ExecutionService {
 
   // ── Language → codapi sandbox mapping ────────────────────────────────────────
   static const Map<String, Map<String, String>> _sandboxes = {
-    'python':     {'sandbox': 'python',     'file': 'main.py'},
-    'dart':       {'sandbox': 'dart',       'file': 'main.dart'},
-    'c':          {'sandbox': 'gcc',          'file': 'main.c'},
-    'c++':        {'sandbox': 'cpp',        'file': 'main.cpp'},
-    'java':       {'sandbox': 'java',       'file': 'main.java'},
+    'python': {'sandbox': 'python', 'file': 'main.py'},
+    'dart': {'sandbox': 'dart', 'file': 'main.dart'},
+    'c++': {'sandbox': 'cpp', 'file': 'main.cpp'},
+    'java': {'sandbox': 'java', 'file': 'main.java'},
     'javascript': {'sandbox': 'typescript', 'file': 'main.ts'},
   };
 
   static Future<ExecutionResult> run(
-    String problemId, String code, String language, {bool isSubmission = true}
-  ) async {
+    String problemId,
+    String code,
+    String language, {
+    bool isSubmission = true,
+  }) async {
     final problem = ProblemBank.getById(problemId);
     if (problem == null) return _errorResult('Problem not found.');
-    if (problem.testCases.isEmpty) return _errorResult('No test cases defined.');
+    if (problem.testCases.isEmpty)
+      return _errorResult('No test cases defined.');
 
     final lang = language.toLowerCase();
     final sandbox = _sandboxes[lang];
@@ -32,15 +35,25 @@ class ExecutionService {
   }
 
   // ── Code harness generator ────────────────────────────────────────────────────
-  static String _generateFinalCode(Problem p, String code, String lang, bool isSubmission) {
+  static String _generateFinalCode(
+    Problem p,
+    String code,
+    String lang,
+    bool isSubmission,
+  ) {
     switch (lang) {
-      case 'python':     return _pythonHarness(p, code, isSubmission);
-      case 'dart':       return _dartHarness(p, code, isSubmission);
-      case 'c':          return _cHarness(p, code, isSubmission);
-      case 'c++':        return _cppHarness(p, code, isSubmission);
-      case 'java':       return _javaHarness(p, code, isSubmission);
-      case 'javascript': return _jsHarness(p, code, isSubmission);
-      default:           return code;
+      case 'python':
+        return _pythonHarness(p, code, isSubmission);
+      case 'dart':
+        return _dartHarness(p, code, isSubmission);
+      case 'c++':
+        return _cppHarness(p, code, isSubmission);
+      case 'java':
+        return _javaHarness(p, code, isSubmission);
+      case 'javascript':
+        return _jsHarness(p, code, isSubmission);
+      default:
+        return code;
     }
   }
 
@@ -51,7 +64,8 @@ class ExecutionService {
     }
     String h = '\n\nif __name__ == "__main__":\n';
     for (final tc in p.testCases) {
-      h += '    print("---CASE_START---")\n    try:\n        print(${p.functionName}(${_simpleArgs(tc.input)}))\n    except Exception as e:\n        print(f"ERROR: {e}")\n    print("---CASE_END---")\n';
+      h +=
+          '    print("---CASE_START---")\n    try:\n        print(${p.functionName}(${_simpleArgs(tc.input)}))\n    except Exception as e:\n        print(f"ERROR: {e}")\n    print("---CASE_END---")\n';
     }
     return code + h;
   }
@@ -63,32 +77,25 @@ class ExecutionService {
     }
     String h = '\n\nvoid main() {\n';
     for (final tc in p.testCases) {
-      h += '  print("---CASE_START---");\n  try {\n    print(${p.functionName}(${tc.input.replaceAll('\n', ', ')}));\n  } catch (e) {\n    print("ERROR: \$e");\n  }\n  print("---CASE_END---");\n';
+      h +=
+          '  print("---CASE_START---");\n  try {\n    print(${p.functionName}(${tc.input.replaceAll('\n', ', ')}));\n  } catch (e) {\n    print("ERROR: \$e");\n  }\n  print("---CASE_END---");\n';
     }
     return '${code + h}}\n';
   }
 
-  static String _cHarness(Problem p, String code, bool isSubmission) {
-    const inc = '#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <stdbool.h>\n\n';
-    if (!isSubmission) {
-      final args = _simpleArgs(p.testCases.first.input);
-      return '${inc}$code\n\nint main() {\n    printf("%s\\n", "---TEST---");\n    // Call: ${p.functionName}($args)\n    return 0;\n}\n';
-    }
-    String main = '\n\nint main() {\n';
-    for (final tc in p.testCases) {
-      final args = _simpleArgs(tc.input);
-      main += '    printf("---CASE_START---\\n");\n    printf("%d\\n", ${p.functionName}($args));\n    printf("---CASE_END---\\n");\n';
-    }
-    return '$inc$code${main}    return 0;\n}\n';
-  }
-
   static String _cppHarness(Problem p, String code, bool isSubmission) {
-    const inc = '#include <iostream>\n'
+    const inc =
+        '#include <iostream>\n'
         '#include <vector>\n'
         '#include <string>\n'
         '#include <algorithm>\n'
         '#include <map>\n'
         '#include <set>\n'
+        '#include <unordered_map>\n'
+        '#include <unordered_set>\n'
+        '#include <queue>\n'
+        '#include <stack>\n'
+        '#include <cmath>\n'
         '#include <utility>\n'
         'using namespace std;\n\n'
         '// Helper to print various types\n'
@@ -114,49 +121,94 @@ class ExecutionService {
         '        if (++i < m.size()) cout << ", ";\n'
         '    }\n'
         '    cout << "}";\n'
+        '}\n\n'
+        'template<typename T> void print_val(const set<T>& s) {\n'
+        '    cout << "[";\n'
+        '    size_t i = 0;\n'
+        '    for (typename set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {\n'
+        '        print_val(*it);\n'
+        '        if (++i < s.size()) cout << ", ";\n'
+        '    }\n'
+        '    cout << "]";\n'
+        '}\n\n'
+        'template<typename T> void print_val(const unordered_set<T>& s) {\n'
+        '    cout << "[";\n'
+        '    size_t i = 0;\n'
+        '    for (typename unordered_set<T>::const_iterator it = s.begin(); it != s.end(); ++it) {\n'
+        '        print_val(*it);\n'
+        '        if (++i < s.size()) cout << ", ";\n'
+        '    }\n'
+        '    cout << "]";\n'
+        '}\n\n'
+        'template<typename K, typename V> void print_val(const unordered_map<K, V>& m) {\n'
+        '    cout << "{";\n'
+        '    size_t i = 0;\n'
+        '    for (typename unordered_map<K, V>::const_iterator it = m.begin(); it != m.end(); ++it) {\n'
+        '        print_val(it->first); cout << ": "; print_val(it->second);\n'
+        '        if (++i < m.size()) cout << ", ";\n'
+        '    }\n'
+        '    cout << "}";\n'
         '}\n\n';
 
     if (!isSubmission) {
-      final args = _simpleArgs(p.testCases.first.input);
+      final args = _cppArgs(p.testCases.first.input);
       return '${inc}$code\n\nint main() {\n    print_val(${p.functionName}($args));\n    cout << endl;\n    return 0;\n}\n';
     }
     String main = '\n\nint main() {\n';
     for (final tc in p.testCases) {
-      final args = _simpleArgs(tc.input);
-      main += '    cout << "---CASE_START---" << endl;\n'
+      final args = _cppArgs(tc.input);
+      main +=
+          '    cout << "---CASE_START---" << endl;\n'
           '    print_val(${p.functionName}($args));\n'
           '    cout << endl << "---CASE_END---" << endl;\n';
     }
     return '$inc$code${main}    return 0;\n}\n';
   }
 
+  static String _cppArgs(String input) {
+    final parts = input.split('\n');
+    final formatted = parts
+        .map((part) {
+          part = part.trim();
+          if (part.startsWith('[') && part.endsWith(']')) {
+            return part.replaceAll('[', '{').replaceAll(']', '}');
+          }
+          return part;
+        })
+        .join(', ');
+    return formatted;
+  }
+
   static String _javaArgs(String input) {
     final parts = input.split('\n');
-    final formatted = parts.map((part) {
-      part = part.trim();
-      if (part.startsWith('[') && part.endsWith(']')) {
-        if (part.startsWith('[[') && part.endsWith(']]')) {
-          String inner = part.replaceAll('[', '{').replaceAll(']', '}');
-          if (part.contains('"') || part.contains("'")) {
-            return 'new String[][]$inner';
+    final formatted = parts
+        .map((part) {
+          part = part.trim();
+          if (part.startsWith('[') && part.endsWith(']')) {
+            if (part.startsWith('[[') && part.endsWith(']]')) {
+              String inner = part.replaceAll('[', '{').replaceAll(']', '}');
+              if (part.contains('"') || part.contains("'")) {
+                return 'new String[][]$inner';
+              }
+              return 'new int[][]$inner';
+            } else {
+              String inner = part.replaceAll('[', '{').replaceAll(']', '}');
+              if (part.contains('"') || part.contains("'")) {
+                return 'new String[]$inner';
+              }
+              return 'new int[]$inner';
+            }
           }
-          return 'new int[][]$inner';
-        } else {
-          String inner = part.replaceAll('[', '{').replaceAll(']', '}');
-          if (part.contains('"') || part.contains("'")) {
-            return 'new String[]$inner';
-          }
-          return 'new int[]$inner';
-        }
-      }
-      return part;
-    }).join(', ');
+          return part;
+        })
+        .join(', ');
     return formatted;
   }
 
   static String _javaHarness(Problem p, String code, bool isSubmission) {
     const inc = 'import java.util.*;\n\n';
-    const helper = '    static void print_val(Object o) {\n'
+    const helper =
+        '    static void print_val(Object o) {\n'
         '        if (o == null) { System.out.print("null"); }\n'
         '        else if (o instanceof int[]) { System.out.print(Arrays.toString((int[])o)); }\n'
         '        else if (o instanceof int[][]) { System.out.print(Arrays.deepToString((int[][])o)); }\n'
@@ -172,7 +224,8 @@ class ExecutionService {
     String main = '\n    public static void main(String[] args) {\n';
     for (final tc in p.testCases) {
       final args = _javaArgs(tc.input);
-      main += '        System.out.println("---CASE_START---");\n'
+      main +=
+          '        System.out.println("---CASE_START---");\n'
           '        try {\n'
           '            print_val(${p.functionName}($args));\n'
           '            System.out.println();\n'
@@ -192,7 +245,8 @@ class ExecutionService {
     String h = '\n';
     for (final tc in p.testCases) {
       final args = tc.input.replaceAll('\n', ', ');
-      h += 'console.log("---CASE_START---");\ntry {\n    let result = ${p.functionName}($args);\n    console.log(result !== undefined ? JSON.stringify(result) : "null");\n} catch(e) {\n    console.log("ERROR: " + e.message);\n}\nconsole.log("---CASE_END---");\n';
+      h +=
+          'console.log("---CASE_START---");\ntry {\n    let result = ${p.functionName}($args);\n    console.log(result !== undefined ? JSON.stringify(result) : "null");\n} catch(e) {\n    console.log("ERROR: " + e.message);\n}\nconsole.log("---CASE_END---");\n';
     }
     return code + h;
   }
@@ -201,20 +255,28 @@ class ExecutionService {
 
   // ── Codapi API call ───────────────────────────────────────────────────────────
   static Future<ExecutionResult> _runViaCodapi(
-    Problem problem, String code, Map<String, String> sandbox, bool isSubmission
+    Problem problem,
+    String code,
+    Map<String, String> sandbox,
+    bool isSubmission,
   ) async {
     try {
-      final response = await http.post(
-        Uri.parse(_codapiUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'sandbox': sandbox['sandbox'],
-          'command': 'run',
-          'files': {sandbox['file']!: code},
-        }),
-      ).timeout(const Duration(seconds: 20), onTimeout: () {
-        throw Exception('Execution timeout');
-      });
+      final response = await http
+          .post(
+            Uri.parse(_codapiUrl),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'sandbox': sandbox['sandbox'],
+              'command': 'run',
+              'files': {sandbox['file']!: code},
+            }),
+          )
+          .timeout(
+            const Duration(seconds: 20),
+            onTimeout: () {
+              throw Exception('Execution timeout');
+            },
+          );
 
       if (response.body.isEmpty) {
         return _errorResult('Empty API response');
@@ -230,9 +292,14 @@ class ExecutionService {
         if (!isSubmission) {
           return ExecutionResult(
             status: SubmissionStatus.pending,
-            passedCount: 0, totalCount: 0, runtimeMs: 0, memoryMb: 0,
+            passedCount: 0,
+            totalCount: 0,
+            runtimeMs: 0,
+            memoryMb: 0,
             stdout: stdout.isNotEmpty ? stdout : stderr,
-            stderr: stderr, testResults: [], xpEarned: 0,
+            stderr: stderr,
+            testResults: [],
+            xpEarned: 0,
           );
         }
         return _validateSubmission(problem, stdout, stderr);
@@ -244,7 +311,11 @@ class ExecutionService {
   }
 
   // ── Validate submission results ───────────────────────────────────────────────
-  static ExecutionResult _validateSubmission(Problem problem, String stdout, String stderr) {
+  static ExecutionResult _validateSubmission(
+    Problem problem,
+    String stdout,
+    String stderr,
+  ) {
     final testResults = <TestResult>[];
     int passed = 0;
 
@@ -256,7 +327,7 @@ class ExecutionService {
     for (int i = 0; i < problem.testCases.length; i++) {
       final tc = problem.testCases[i];
       String actual = 'No output';
-      
+
       if (i + 1 < parts.length) {
         final caseOutput = parts[i + 1].split('---CASE_END---');
         if (caseOutput.isNotEmpty) {
@@ -273,33 +344,44 @@ class ExecutionService {
         if (str == 'false' || str == '0') return 'false';
         return str;
       };
-      
+
       final isCasePassed = norm(actual) == norm(expected);
       if (isCasePassed) passed++;
-      
-      testResults.add(TestResult(
-        caseLabel: tc.isHidden ? 'Hidden Case' : 'Case #${i + 1}',
-        input: tc.isHidden ? '(hidden)' : tc.input,
-        expectedOutput: tc.isHidden ? '(hidden)' : expected,
-        actualOutput: tc.isHidden ? null : actual,
-        passed: isCasePassed,
-        errorMessage: isCasePassed ? null : 'Wrong Answer',
-      ));
+
+      testResults.add(
+        TestResult(
+          caseLabel: tc.isHidden ? 'Hidden Case' : 'Case #${i + 1}',
+          input: tc.isHidden ? '(hidden)' : tc.input,
+          expectedOutput: tc.isHidden ? '(hidden)' : expected,
+          actualOutput: tc.isHidden ? null : actual,
+          passed: isCasePassed,
+          errorMessage: isCasePassed ? null : 'Wrong Answer',
+        ),
+      );
     }
     final allPassed = passed == problem.testCases.length;
     return ExecutionResult(
       status: allPassed ? SubmissionStatus.passed : SubmissionStatus.failed,
-      passedCount: passed, totalCount: problem.testCases.length,
-      runtimeMs: 15, memoryMb: 12.0,
-      stdout: stdout, stderr: stderr,
+      passedCount: passed,
+      totalCount: problem.testCases.length,
+      runtimeMs: 15,
+      memoryMb: 12.0,
+      stdout: stdout,
+      stderr: stderr,
       testResults: testResults,
       xpEarned: allPassed ? problem.xpReward : 0,
     );
   }
 
   static ExecutionResult _errorResult(String message) => ExecutionResult(
-    status: SubmissionStatus.error, passedCount: 0, totalCount: 0,
-    runtimeMs: 0, memoryMb: 0, stdout: '', stderr: message,
-    testResults: [], xpEarned: 0,
+    status: SubmissionStatus.error,
+    passedCount: 0,
+    totalCount: 0,
+    runtimeMs: 0,
+    memoryMb: 0,
+    stdout: '',
+    stderr: message,
+    testResults: [],
+    xpEarned: 0,
   );
 }

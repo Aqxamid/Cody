@@ -17,18 +17,24 @@ class ProblemBank {
         TestCase(input: '5, 3', expectedOutput: '8'),
         TestCase(input: '-1, -1', expectedOutput: '-2'),
         TestCase(input: '0, 0', expectedOutput: '0', isHidden: true),
-      
-        TestCase(input: '1000000, 999999', expectedOutput: '1999999', isHidden: true),
+
+        TestCase(
+          input: '1000000, 999999',
+          expectedOutput: '1999999',
+          isHidden: true,
+        ),
       ],
       constraints: '-10⁹ ≤ a, b ≤ 10⁹',
       starterCode: {
         'Python': 'def solve(a, b):\n    # Implement here\n    return 0',
-        'Dart': 'int solve(int a, int b) {\n  // Implement here\n  return 0;\n}',
-      
-        'C': 'int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(a, b) {\n    // Implement here\n    return 0;\n}',
+        'Dart':
+            'int solve(int a, int b) {\n  // Implement here\n  return 0;\n}',
+        'C++':
+            'int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int a, int b) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(a, b) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -38,7 +44,8 @@ class ProblemBank {
       tags: ['Basics', 'Logic'],
       xpReward: 50,
       functionName: 'solve',
-      description: 'Given an integer n, return "Even" if the number is even, or "Odd" if it is odd.',
+      description:
+          'Given an integer n, return "Even" if the number is even, or "Odd" if it is odd.',
       examples: [ProblemExample(input: 'n = 4', output: 'Even')],
       testCases: [
         TestCase(input: '4', expectedOutput: 'Even'),
@@ -50,11 +57,12 @@ class ProblemBank {
       starterCode: {
         'Python': 'def solve(n):\n    # Implement here\n    return ""',
         'Dart': 'String solve(int n) {\n  // Implement here\n  return "";\n}',
-      
-        'C': 'char* solve(int n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
-        'C++': 'string solve(int n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
-        'Java': 'public static String solve(int n) {\n    // Implement here\n    return "";\n}',
-        'JavaScript': 'function solve(n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
+        'C++':
+            'string solve(int n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
+        'Java':
+            'public static String solve(int n) {\n    // Implement here\n    return "";\n}',
+        'JavaScript':
+            'function solve(n) {\n    // Return "Even" or "Odd"\n    return "";\n}',
       },
     ),
     Problem(
@@ -74,12 +82,14 @@ class ProblemBank {
       constraints: '-10⁹ ≤ a, b, c ≤ 10⁹',
       starterCode: {
         'Python': 'def solve(a, b, c):\n    # Implement here\n    return 0',
-        'Dart': 'int solve(int a, int b, int c) {\n  // Implement here\n  return 0;\n}',
-      
-        'C': 'int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(a, b, c) {\n    // Implement here\n    return 0;\n}',
+        'Dart':
+            'int solve(int a, int b, int c) {\n  // Implement here\n  return 0;\n}',
+        'C++':
+            'int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int a, int b, int c) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(a, b, c) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -99,12 +109,14 @@ class ProblemBank {
       constraints: '1 ≤ s.length ≤ 1000',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return ""',
-        'Dart': 'String solve(String s) {\n  // Implement here\n  return "";\n}',
-      
-        'C': 'char* solve(char* s) {\n    // Implement here\n    return s;\n}',
-        'C++': 'string solve(string s) {\n    // Implement here\n    return "";\n}',
-        'Java': 'public static String solve(String s) {\n    // Implement here\n    return "";\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return "";\n}',
+        'Dart':
+            'String solve(String s) {\n  // Implement here\n  return "";\n}',
+        'C++':
+            'string solve(string s) {\n    // Implement here\n    return "";\n}',
+        'Java':
+            'public static String solve(String s) {\n    // Implement here\n    return "";\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return "";\n}',
       },
     ),
     Problem(
@@ -114,7 +126,8 @@ class ProblemBank {
       tags: ['String', 'Logic'],
       xpReward: 50,
       functionName: 'solve',
-      description: 'Count the number of vowels (a, e, i, o, u) in a given string s.',
+      description:
+          'Count the number of vowels (a, e, i, o, u) in a given string s.',
       examples: [ProblemExample(input: 's = "coding"', output: '2')],
       testCases: [
         TestCase(input: '"coding"', expectedOutput: '2'),
@@ -125,11 +138,11 @@ class ProblemBank {
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return 0',
         'Dart': 'int solve(String s) {\n  // Implement here\n  return 0;\n}',
-      
-        'C': 'int solve(char* s) {\n    // Implement here\n    return 0;\n}',
         'C++': 'int solve(string s) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(String s) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(String s) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -150,11 +163,12 @@ class ProblemBank {
       starterCode: {
         'Python': 'def factorial(n):\n    # Implement here\n    return 1',
         'Dart': 'int factorial(int n) {\n  // Implement here\n  return 1;\n}',
-      
-        'C': 'long long factorial(int n) {\n    // Implement here\n    return 1;\n}',
-        'C++': 'long long factorial(int n) {\n    // Implement here\n    return 1;\n}',
-        'Java': 'public static long factorial(int n) {\n    // Implement here\n    return 1;\n}',
-        'JavaScript': 'function factorial(n) {\n    // Implement here\n    return 1;\n}',
+        'C++':
+            'long long factorial(int n) {\n    // Implement here\n    return 1;\n}',
+        'Java':
+            'public static long factorial(int n) {\n    // Implement here\n    return 1;\n}',
+        'JavaScript':
+            'function factorial(n) {\n    // Implement here\n    return 1;\n}',
       },
     ),
     Problem(
@@ -169,16 +183,23 @@ class ProblemBank {
       testCases: [
         TestCase(input: '5', expectedOutput: '[0, 1, 1, 2, 3]'),
         TestCase(input: '1', expectedOutput: '[0]'),
-        TestCase(input: '8', expectedOutput: '[0, 1, 1, 2, 3, 5, 8, 13]', isHidden: true),
+        TestCase(
+          input: '8',
+          expectedOutput: '[0, 1, 1, 2, 3, 5, 8, 13]',
+          isHidden: true,
+        ),
       ],
       constraints: '1 ≤ n ≤ 50',
       starterCode: {
         'Python': 'def solve(n):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(int n) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int n) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(int n) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int n) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(n) {\n    // Return array of first n Fibonacci numbers\n    return [];\n}',
+        'Dart':
+            'List<int> solve(int n) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(int n) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int n) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(n) {\n    // Return array of first n Fibonacci numbers\n    return [];\n}',
       },
     ),
     Problem(
@@ -199,12 +220,14 @@ class ProblemBank {
       constraints: '1 ≤ n ≤ 10⁹',
       starterCode: {
         'Python': 'def isPrime(n):\n    # Implement here\n    return False',
-        'Dart': 'bool isPrime(int n) {\n  // Implement here\n  return false;\n}',
-      
-        'C': 'bool isPrime(int n) {\n    // Implement here\n    return false;\n}',
-        'C++': 'bool isPrime(int n) {\n    // Implement here\n    return false;\n}',
-        'Java': 'public static boolean isPrime(int n) {\n    // Implement here\n    return false;\n}',
-        'JavaScript': 'function isPrime(n) {\n    // Implement here\n    return false;\n}',
+        'Dart':
+            'bool isPrime(int n) {\n  // Implement here\n  return false;\n}',
+        'C++':
+            'bool isPrime(int n) {\n    // Implement here\n    return false;\n}',
+        'Java':
+            'public static boolean isPrime(int n) {\n    // Implement here\n    return false;\n}',
+        'JavaScript':
+            'function isPrime(n) {\n    // Implement here\n    return false;\n}',
       },
     ),
     Problem(
@@ -224,11 +247,14 @@ class ProblemBank {
       constraints: '-273.15 ≤ c ≤ 1000',
       starterCode: {
         'Python': 'def solve(c):\n    # Implement here\n    return 0.0',
-        'Dart': 'double solve(double c) {\n  // Implement here\n  return 0.0;\n}',
-        'C': 'double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
-        'C++': 'double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
-        'Java': 'public static double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
-        'JavaScript': 'function solve(c) {\n    // Implement here\n    return 0.0;\n}',
+        'Dart':
+            'double solve(double c) {\n  // Implement here\n  return 0.0;\n}',
+        'C++':
+            'double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
+        'Java':
+            'public static double solve(double c) {\n    // Implement here\n    return 0.0;\n}',
+        'JavaScript':
+            'function solve(c) {\n    // Implement here\n    return 0.0;\n}',
       },
     ),
     Problem(
@@ -249,11 +275,11 @@ class ProblemBank {
       starterCode: {
         'Python': 'def solve(n):\n    # Implement here\n    return 0',
         'Dart': 'int solve(int n) {\n  // Implement here\n  return 0;\n}',
-      
-        'C': 'int solve(int n) {\n    // Implement here\n    return 0;\n}',
         'C++': 'int solve(int n) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int n) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(n) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int n) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(n) {\n    // Implement here\n    return 0;\n}',
       },
     ),
 
@@ -267,18 +293,22 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find the largest number in an array.',
       examples: [ProblemExample(input: '[1, 5, 3]', output: '5')],
-      testCases: [TestCase(input: '[1, 5, 3]', expectedOutput: '5'),
+      testCases: [
+        TestCase(input: '[1, 5, 3]', expectedOutput: '5'),
         TestCase(input: '[-3, -1, -2]', expectedOutput: '-1'),
         TestCase(input: '[42]', expectedOutput: '42', isHidden: true),
       ],
       constraints: '1 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return 0',
-        'Dart': 'int solve(List<int> nums) {\n  // Implement here\n  return 0;\n}',
-        'C': 'int solve(int* nums, int numsSize) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(vector<int>& nums) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return 0;\n}',
+        'Dart':
+            'int solve(List<int> nums) {\n  // Implement here\n  return 0;\n}',
+        'C++':
+            'int solve(vector<int> nums) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -294,11 +324,14 @@ class ProblemBank {
       constraints: '0 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize, int* returnSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] nums) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] nums) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -314,11 +347,14 @@ class ProblemBank {
       constraints: '1 ≤ length ≤ 1000',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] nums) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] nums) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -334,11 +370,14 @@ class ProblemBank {
       constraints: '2 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return 0',
-        'Dart': 'int solve(List<int> nums) {\n  // Implement here\n  return 0;\n}',
-        'C': 'int solve(int* nums, int numsSize) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(vector<int>& nums) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return 0;\n}',
+        'Dart':
+            'int solve(List<int> nums) {\n  // Implement here\n  return 0;\n}',
+        'C++':
+            'int solve(vector<int> nums) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -354,11 +393,14 @@ class ProblemBank {
       constraints: '0 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(a, b):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> a, List<int> b) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* a, int aSize, int* b, int bSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& a, vector<int>& b) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] a, int[] b) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(a, b) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> a, List<int> b) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> a, vector<int> b) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] a, int[] b) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(a, b) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -374,11 +416,14 @@ class ProblemBank {
       constraints: '0 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return {}',
-        'Dart': 'Map<int, int> solve(List<int> nums) {\n  // Implement here\n  return {};\n}',
-        'C': 'void solve(int* nums, int numsSize) {\n    // Implement here (print freq)\n}',
-        'C++': 'map<int, int> solve(vector<int>& nums) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static Map<Integer, Integer> solve(int[] nums) {\n    // Implement here\n    return new HashMap<>();\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return {};\n}',
+        'Dart':
+            'Map<int, int> solve(List<int> nums) {\n  // Implement here\n  return {};\n}',
+        'C++':
+            'map<int, int> solve(vector<int> nums) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static Map<Integer, Integer> solve(int[] nums) {\n    // Implement here\n    return new HashMap<>();\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return {};\n}',
       },
     ),
     Problem(
@@ -398,11 +443,14 @@ class ProblemBank {
       constraints: '0 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return False',
-        'Dart': 'bool solve(String s) {\n  // Implement here\n  return false;\n}',
-        'C': 'bool solve(char* s) {\n    // Implement here\n    return false;\n}',
-        'C++': 'bool solve(string s) {\n    // Implement here\n    return false;\n}',
-        'Java': 'public static boolean solve(String s) {\n    // Implement here\n    return false;\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return false;\n}',
+        'Dart':
+            'bool solve(String s) {\n  // Implement here\n  return false;\n}',
+        'C++':
+            'bool solve(string s) {\n    // Implement here\n    return false;\n}',
+        'Java':
+            'public static boolean solve(String s) {\n    // Implement here\n    return false;\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return false;\n}',
       },
     ),
     Problem(
@@ -413,7 +461,12 @@ class ProblemBank {
       xpReward: 80,
       functionName: 'solve',
       description: 'Generate every possible substring.',
-      examples: [ProblemExample(input: '"abc"', output: '["a", "ab", "abc", "b", "bc", "c"]')],
+      examples: [
+        ProblemExample(
+          input: '"abc"',
+          output: '["a", "ab", "abc", "b", "bc", "c"]',
+        ),
+      ],
       testCases: [
         TestCase(input: '"abc"', expectedOutput: 'a, ab, abc, b, bc, c'),
         TestCase(input: '"a"', expectedOutput: 'a', isHidden: true),
@@ -421,11 +474,14 @@ class ProblemBank {
       constraints: '1 ≤ length ≤ 50',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return []',
-        'Dart': 'List<String> solve(String s) {\n  // Implement here\n  return [];\n}',
-        'C': 'char** solve(char* s, int* returnSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<string> solve(string s) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static List<String> solve(String s) {\n    // Implement here\n    return new ArrayList<>();\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<String> solve(String s) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<string> solve(string s) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static List<String> solve(String s) {\n    // Implement here\n    return new ArrayList<>();\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -441,11 +497,14 @@ class ProblemBank {
       constraints: '1 ≤ length, k ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(nums, k):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums, int k) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize, int k) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums, int k) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] nums, int k) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(nums, k) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> nums, int k) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums, int k) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] nums, int k) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(nums, k) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -461,11 +520,14 @@ class ProblemBank {
       constraints: '1 ≤ length ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] nums) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] nums) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return [];\n}',
       },
     ),
 
@@ -478,19 +540,26 @@ class ProblemBank {
       xpReward: 100,
       functionName: 'solve',
       description: 'Find indices of two numbers that add up to target.',
-      examples: [ProblemExample(input: 'nums=[2,7], target=9', output: '[0,1]')],
-      testCases: [TestCase(input: '[2,7]\n9', expectedOutput: '[0, 1]'),
+      examples: [
+        ProblemExample(input: 'nums=[2,7], target=9', output: '[0,1]'),
+      ],
+      testCases: [
+        TestCase(input: '[2,7]\n9', expectedOutput: '[0, 1]'),
         TestCase(input: '[3,2,4]\n6', expectedOutput: '[1, 2]'),
         TestCase(input: '[3,3]\n6', expectedOutput: '[0, 1]', isHidden: true),
       ],
       constraints: '2 ≤ length ≤ 10⁵',
       starterCode: {
-        'Python': 'def solve(nums, target):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums, int target) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize, int target) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums, int target) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] nums, int target) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(nums, target) {\n    // Implement here\n    return [];\n}',
+        'Python':
+            'def solve(nums, target):\n    # Implement here\n    return []',
+        'Dart':
+            'List<int> solve(List<int> nums, int target) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums, int target) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] nums, int target) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(nums, target) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -506,11 +575,14 @@ class ProblemBank {
       constraints: '0 ≤ length ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return 0',
-        'Dart': 'int solve(List<int> nums) {\n  // Implement here\n  return 0;\n}',
-        'C': 'int solve(int* nums, int numsSize) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(vector<int>& nums) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return 0;\n}',
+        'Dart':
+            'int solve(List<int> nums) {\n  // Implement here\n  return 0;\n}',
+        'C++':
+            'int solve(vector<int> nums) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int[] nums) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -522,7 +594,8 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find two lines that form a container with most water.',
       examples: [ProblemExample(input: '[1,8,6,2,5,4,8,3,7]', output: '49')],
-      testCases: [TestCase(input: '[1,8,6,2,5,4,8,3,7]', expectedOutput: '49'),
+      testCases: [
+        TestCase(input: '[1,8,6,2,5,4,8,3,7]', expectedOutput: '49'),
         TestCase(input: '[1,1]', expectedOutput: '1'),
         TestCase(input: '[4,3,2,1,4]', expectedOutput: '16', isHidden: true),
       ],
@@ -530,10 +603,12 @@ class ProblemBank {
       starterCode: {
         'Python': 'def solve(h):\n    # Implement here\n    return 0',
         'Dart': 'int solve(List<int> h) {\n  // Implement here\n  return 0;\n}',
-        'C': 'int solve(int* h, int hSize) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(vector<int>& h) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int[] h) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(h) {\n    // Implement here\n    return 0;\n}',
+        'C++':
+            'int solve(vector<int> h) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int[] h) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(h) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -545,18 +620,22 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Largest sum of size k.',
       examples: [ProblemExample(input: '[2,1,5,1,3,2], 3', output: '9')],
-      testCases: [TestCase(input: '[2,1,5,1,3,2]\n3', expectedOutput: '9'),
+      testCases: [
+        TestCase(input: '[2,1,5,1,3,2]\n3', expectedOutput: '9'),
         TestCase(input: '[1,1,1,1]\n2', expectedOutput: '2'),
         TestCase(input: '[5,5,5,5,5]\n3', expectedOutput: '15', isHidden: true),
       ],
       constraints: 'k ≤ length',
       starterCode: {
         'Python': 'def solve(nums, k):\n    # Implement here\n    return 0',
-        'Dart': 'int solve(List<int> nums, int k) {\n  // Implement here\n  return 0;\n}',
-        'C': 'int solve(int* nums, int numsSize, int k) {\n    // Implement here\n    return 0;\n}',
-        'C++': 'int solve(vector<int>& nums, int k) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(int[] nums, int k) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(nums, k) {\n    // Implement here\n    return 0;\n}',
+        'Dart':
+            'int solve(List<int> nums, int k) {\n  // Implement here\n  return 0;\n}',
+        'C++':
+            'int solve(vector<int> nums, int k) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(int[] nums, int k) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(nums, k) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -577,11 +656,11 @@ class ProblemBank {
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return 0',
         'Dart': 'int solve(String s) {\n  // Implement here\n  return 0;\n}',
-      
-        'C': 'int solve(char* s) {\n    // Implement here\n    return 0;\n}',
         'C++': 'int solve(string s) {\n    // Implement here\n    return 0;\n}',
-        'Java': 'public static int solve(String s) {\n    // Implement here\n    return 0;\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return 0;\n}',
+        'Java':
+            'public static int solve(String s) {\n    // Implement here\n    return 0;\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return 0;\n}',
       },
     ),
     Problem(
@@ -591,7 +670,8 @@ class ProblemBank {
       tags: ['Sliding Window'],
       xpReward: 150,
       functionName: 'solve',
-      description: 'Find smallest substring containing all characters of target.',
+      description:
+          'Find smallest substring containing all characters of target.',
       examples: [ProblemExample(input: 'ADOBECODEBANC, ABC', output: 'BANC')],
       testCases: [
         TestCase(input: '"ADOBECODEBANC"\n"ABC"', expectedOutput: 'BANC'),
@@ -601,11 +681,14 @@ class ProblemBank {
       constraints: 'n ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(s, t):\n    # Implement here\n    return ""',
-        'Dart': 'String solve(String s, String t) {\n  // Implement here\n  return "";\n}',
-        'C': 'char* solve(char* s, char* t) {\n    // Implement here\n    return "";\n}',
-        'C++': 'string solve(string s, string t) {\n    // Implement here\n    return "";\n}',
-        'Java': 'public static String solve(String s, String t) {\n    // Implement here\n    return "";\n}',
-        'JavaScript': 'function solve(s, t) {\n    // Implement here\n    return "";\n}',
+        'Dart':
+            'String solve(String s, String t) {\n  // Implement here\n  return "";\n}',
+        'C++':
+            'string solve(string s, string t) {\n    // Implement here\n    return "";\n}',
+        'Java':
+            'public static String solve(String s, String t) {\n    // Implement here\n    return "";\n}',
+        'JavaScript':
+            'function solve(s, t) {\n    // Implement here\n    return "";\n}',
       },
     ),
     Problem(
@@ -622,10 +705,12 @@ class ProblemBank {
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return -1',
         'Dart': 'int solve(String s) {\n  // Implement here\n  return -1;\n}',
-        'C': 'int solve(char* s) {\n    // Implement here\n    return -1;\n}',
-        'C++': 'int solve(string s) {\n    // Implement here\n    return -1;\n}',
-        'Java': 'public static int solve(String s) {\n    // Implement here\n    return -1;\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return -1;\n}',
+        'C++':
+            'int solve(string s) {\n    // Implement here\n    return -1;\n}',
+        'Java':
+            'public static int solve(String s) {\n    // Implement here\n    return -1;\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return -1;\n}',
       },
     ),
     Problem(
@@ -636,16 +721,29 @@ class ProblemBank {
       xpReward: 110,
       functionName: 'solve',
       description: 'Group them together.',
-      examples: [ProblemExample(input: '["eat", "tea", "tan"]', output: '[["eat", "tea"], ["tan"]]')],
-      testCases: [TestCase(input: '["eat", "tea", "tan"]', expectedOutput: '[["eat", "tea"], ["tan"]]')],
+      examples: [
+        ProblemExample(
+          input: '["eat", "tea", "tan"]',
+          output: '[["eat", "tea"], ["tan"]]',
+        ),
+      ],
+      testCases: [
+        TestCase(
+          input: '["eat", "tea", "tan"]',
+          expectedOutput: '[["eat", "tea"], ["tan"]]',
+        ),
+      ],
       constraints: 'n ≤ 10⁴',
       starterCode: {
         'Python': 'def solve(strs):\n    # Implement here\n    return []',
-        'Dart': 'List<List<String>> solve(List<String> strs) {\n  // Implement here\n  return [];\n}',
-        'C': 'char*** solve(char** strs, int strsSize, int* returnSize, int** returnColumnSizes) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<vector<string>> solve(vector<string>& strs) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static List<List<String>> solve(String[] strs) {\n    // Implement here\n    return new ArrayList<>();\n}',
-        'JavaScript': 'function solve(strs) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<List<String>> solve(List<String> strs) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<vector<string>> solve(vector<string> strs) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static List<List<String>> solve(String[] strs) {\n    // Implement here\n    return new ArrayList<>();\n}',
+        'JavaScript':
+            'function solve(strs) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -657,15 +755,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Find all elements that appear twice.',
       examples: [ProblemExample(input: '[4,3,2,7,8,2,3,1]', output: '[2,3]')],
-      testCases: [TestCase(input: '[4,3,2,7,8,2,3,1]', expectedOutput: '[2, 3]')],
+      testCases: [
+        TestCase(input: '[4,3,2,7,8,2,3,1]', expectedOutput: '[2, 3]'),
+      ],
       constraints: 'n ≤ 10⁵',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize, int* returnSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static List<Integer> solve(int[] nums) {\n    // Implement here\n    return new ArrayList<>();\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static List<Integer> solve(int[] nums) {\n    // Implement here\n    return new ArrayList<>();\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return [];\n}',
       },
     ),
 
@@ -683,11 +786,14 @@ class ProblemBank {
       constraints: '-100 < x < 100, -2³¹ ≤ n ≤ 2³¹-1',
       starterCode: {
         'Python': 'def my_pow(x, n):\n    # Implement here\n    return 0.0',
-        'Dart': 'double my_pow(double x, int n) {\n  // Implement here\n  return 0.0;\n}',
-        'C': 'double my_pow(double x, int n) {\n    // Implement here\n    return 0.0;\n}',
-        'C++': 'double my_pow(double x, int n) {\n    // Implement here\n    return 0.0;\n}',
-        'Java': 'public static double my_pow(double x, int n) {\n    // Implement here\n    return 0.0;\n}',
-        'JavaScript': 'function my_pow(x, n) {\n    // Implement here\n    return 0.0;\n}',
+        'Dart':
+            'double my_pow(double x, int n) {\n  // Implement here\n  return 0.0;\n}',
+        'C++':
+            'double my_pow(double x, int n) {\n    // Implement here\n    return 0.0;\n}',
+        'Java':
+            'public static double my_pow(double x, int n) {\n    // Implement here\n    return 0.0;\n}',
+        'JavaScript':
+            'function my_pow(x, n) {\n    // Implement here\n    return 0.0;\n}',
       },
     ),
     Problem(
@@ -698,16 +804,26 @@ class ProblemBank {
       xpReward: 130,
       functionName: 'solve',
       description: 'Return all permutations.',
-      examples: [ProblemExample(input: 'abc', output: 'abc, acb, bac, bca, cab, cba')],
-      testCases: [TestCase(input: '"abc"', expectedOutput: '[abc, acb, bac, bca, cab, cba]')],
+      examples: [
+        ProblemExample(input: 'abc', output: 'abc, acb, bac, bca, cab, cba'),
+      ],
+      testCases: [
+        TestCase(
+          input: '"abc"',
+          expectedOutput: '[abc, acb, bac, bca, cab, cba]',
+        ),
+      ],
       constraints: '1 ≤ n ≤ 8',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return []',
-        'Dart': 'List<String> solve(String s) {\n  // Implement here\n  return [];\n}',
-        'C': 'char** solve(char* s, int* returnSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<string> solve(string s) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static List<String> solve(String s) {\n    // Implement here\n    return new ArrayList<>();\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<String> solve(String s) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<string> solve(string s) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static List<String> solve(String s) {\n    // Implement here\n    return new ArrayList<>();\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -719,15 +835,20 @@ class ProblemBank {
       functionName: 'solve',
       description: 'Return all possible subsets.',
       examples: [ProblemExample(input: '[1,2]', output: '[[],[1],[2],[1,2]]')],
-      testCases: [TestCase(input: '[1,2]', expectedOutput: '[[], [1], [2], [1, 2]]')],
+      testCases: [
+        TestCase(input: '[1,2]', expectedOutput: '[[], [1], [2], [1, 2]]'),
+      ],
       constraints: 'n ≤ 10',
       starterCode: {
         'Python': 'def solve(nums):\n    # Implement here\n    return []',
-        'Dart': 'List<List<int>> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
-        'C': 'int** solve(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<vector<int>> solve(vector<int>& nums) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static List<List<Integer>> solve(int[] nums) {\n    // Implement here\n    return new ArrayList<>();\n}',
-        'JavaScript': 'function solve(nums) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<List<int>> solve(List<int> nums) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<vector<int>> solve(vector<int> nums) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static List<List<Integer>> solve(int[] nums) {\n    // Implement here\n    return new ArrayList<>();\n}',
+        'JavaScript':
+            'function solve(nums) {\n    // Implement here\n    return [];\n}',
       },
     ),
     Problem(
@@ -737,17 +858,26 @@ class ProblemBank {
       tags: ['Backtracking'],
       xpReward: 120,
       functionName: 'solve',
-      description: 'Find all unique combinations of candidates that sum to target.',
-      examples: [ProblemExample(input: '[2,3,6,7], 7', output: '[[2,2,3],[7]]')],
-      testCases: [TestCase(input: '[2,3,6,7]\n7', expectedOutput: '[[2, 2, 3], [7]]')],
+      description:
+          'Find all unique combinations of candidates that sum to target.',
+      examples: [
+        ProblemExample(input: '[2,3,6,7], 7', output: '[[2,2,3],[7]]'),
+      ],
+      testCases: [
+        TestCase(input: '[2,3,6,7]\n7', expectedOutput: '[[2, 2, 3], [7]]'),
+      ],
       constraints: 'n ≤ 30',
       starterCode: {
-        'Python': 'def solve(nums, target):\n    # Implement here\n    return []',
-        'Dart': 'List<List<int>> solve(List<int> nums, int target) {\n  // Implement here\n  return [];\n}',
-        'C': 'int** solve(int* nums, int numsSize, int target, int* returnSize, int** returnColumnSizes) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<vector<int>> solve(vector<int>& nums, int target) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static List<List<Integer>> solve(int[] nums, int target) {\n    // Implement here\n    return new ArrayList<>();\n}',
-        'JavaScript': 'function solve(nums, target) {\n    // Implement here\n    return [];\n}',
+        'Python':
+            'def solve(nums, target):\n    # Implement here\n    return []',
+        'Dart':
+            'List<List<int>> solve(List<int> nums, int target) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<vector<int>> solve(vector<int> nums, int target) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static List<List<Integer>> solve(int[] nums, int target) {\n    // Implement here\n    return new ArrayList<>();\n}',
+        'JavaScript':
+            'function solve(nums, target) {\n    // Implement here\n    return [];\n}',
       },
     ),
     // ── LEVEL 5: DATA STRUCTURES ────────────────────────────────────────────
@@ -769,11 +899,14 @@ class ProblemBank {
       constraints: 'n < 10⁴',
       starterCode: {
         'Python': 'def solve(s):\n    # Implement here\n    return False',
-        'Dart': 'bool solve(String s) {\n  // Implement here\n  return false;\n}',
-        'C': 'bool solve(char* s) {\n    // Implement here\n    return false;\n}',
-        'C++': 'bool solve(string s) {\n    // Implement here\n    return false;\n}',
-        'Java': 'public static boolean solve(String s) {\n    // Implement here\n    return false;\n}',
-        'JavaScript': 'function solve(s) {\n    // Implement here\n    return false;\n}',
+        'Dart':
+            'bool solve(String s) {\n  // Implement here\n  return false;\n}',
+        'C++':
+            'bool solve(string s) {\n    // Implement here\n    return false;\n}',
+        'Java':
+            'public static boolean solve(String s) {\n    // Implement here\n    return false;\n}',
+        'JavaScript':
+            'function solve(s) {\n    // Implement here\n    return false;\n}',
       },
     ),
     Problem(
@@ -784,20 +917,27 @@ class ProblemBank {
       xpReward: 140,
       functionName: 'solve',
       description: 'Find the next greater element for each item in array.',
-      examples: [ProblemExample(input: '[4,1,2],[1,3,4,2]', output: '[-1,3,-1]')],
-      testCases: [TestCase(input: '[4,1,2]\n[1,3,4,2]', expectedOutput: '[-1, 3, -1]')],
+      examples: [
+        ProblemExample(input: '[4,1,2],[1,3,4,2]', output: '[-1,3,-1]'),
+      ],
+      testCases: [
+        TestCase(input: '[4,1,2]\n[1,3,4,2]', expectedOutput: '[-1, 3, -1]'),
+      ],
       constraints: 'n < 1000',
       starterCode: {
-        'Python': 'def solve(nums1, nums2):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> n1, List<int> n2) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* n1, int n1Size, int* n2, int n2Size, int* returnSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& n1, vector<int>& n2) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] n1, int[] n2) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(n1, n2) {\n    // Implement here\n    return [];\n}',
+        'Python':
+            'def solve(nums1, nums2):\n    # Implement here\n    return []',
+        'Dart':
+            'List<int> solve(List<int> n1, List<int> n2) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> n1, vector<int> n2) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] n1, int[] n2) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(n1, n2) {\n    // Implement here\n    return [];\n}',
       },
     ),
-    
-    
+
     Problem(
       id: 'sliding_window_max',
       title: 'Sliding window maximum',
@@ -806,16 +946,29 @@ class ProblemBank {
       xpReward: 200,
       functionName: 'solve',
       description: 'Find max in every window of size k.',
-      examples: [ProblemExample(input: '[1,3,-1,-3,5,3,6,7], 3', output: '[3,3,5,5,6,7]')],
-      testCases: [TestCase(input: '[1,3,-1,-3,5,3,6,7]\n3', expectedOutput: '[3, 3, 5, 5, 6, 7]')],
+      examples: [
+        ProblemExample(
+          input: '[1,3,-1,-3,5,3,6,7], 3',
+          output: '[3,3,5,5,6,7]',
+        ),
+      ],
+      testCases: [
+        TestCase(
+          input: '[1,3,-1,-3,5,3,6,7]\n3',
+          expectedOutput: '[3, 3, 5, 5, 6, 7]',
+        ),
+      ],
       constraints: 'n < 10⁵',
       starterCode: {
         'Python': 'def solve(nums, k):\n    # Implement here\n    return []',
-        'Dart': 'List<int> solve(List<int> nums, int k) {\n  // Implement here\n  return [];\n}',
-        'C': 'int* solve(int* nums, int numsSize, int k, int* returnSize) {\n    // Implement here\n    return NULL;\n}',
-        'C++': 'vector<int> solve(vector<int>& nums, int k) {\n    // Implement here\n    return {};\n}',
-        'Java': 'public static int[] solve(int[] nums, int k) {\n    // Implement here\n    return new int[0];\n}',
-        'JavaScript': 'function solve(nums, k) {\n    // Implement here\n    return [];\n}',
+        'Dart':
+            'List<int> solve(List<int> nums, int k) {\n  // Implement here\n  return [];\n}',
+        'C++':
+            'vector<int> solve(vector<int> nums, int k) {\n    // Implement here\n    return {};\n}',
+        'Java':
+            'public static int[] solve(int[] nums, int k) {\n    // Implement here\n    return new int[0];\n}',
+        'JavaScript':
+            'function solve(nums, k) {\n    // Implement here\n    return [];\n}',
       },
     ),
   ];
@@ -832,8 +985,23 @@ class ProblemBank {
       problems.where((p) => p.difficulty == d).toList();
 
   static Problem get dailyChallenge {
-    if (problems.isEmpty) return const Problem(id: 'dummy', title: 'Loading...', description: '', difficulty: Difficulty.easy, tags: [], examples: [], testCases: [], constraints: '', xpReward: 0, functionName: '', starterCode: {});
-    final dayOfYear = DateTime.now().difference(DateTime(DateTime.now().year)).inDays;
+    if (problems.isEmpty)
+      return const Problem(
+        id: 'dummy',
+        title: 'Loading...',
+        description: '',
+        difficulty: Difficulty.easy,
+        tags: [],
+        examples: [],
+        testCases: [],
+        constraints: '',
+        xpReward: 0,
+        functionName: '',
+        starterCode: {},
+      );
+    final dayOfYear = DateTime.now()
+        .difference(DateTime(DateTime.now().year))
+        .inDays;
     return problems[dayOfYear % problems.length];
   }
 
@@ -853,9 +1021,15 @@ class ProblemBank {
 
       // Group them by difficulty to maintain sequential unlocking rules
       // (User must solve all Easy before seeing Medium, etc.)
-      final easy = allList.where((p) => p.difficulty == Difficulty.easy).toList();
-      final medium = allList.where((p) => p.difficulty == Difficulty.medium).toList();
-      final hard = allList.where((p) => p.difficulty == Difficulty.hard).toList();
+      final easy = allList
+          .where((p) => p.difficulty == Difficulty.easy)
+          .toList();
+      final medium = allList
+          .where((p) => p.difficulty == Difficulty.medium)
+          .toList();
+      final hard = allList
+          .where((p) => p.difficulty == Difficulty.hard)
+          .toList();
 
       // Overwrite the problems list in strict difficulty order
       problems = [...easy, ...medium, ...hard];
